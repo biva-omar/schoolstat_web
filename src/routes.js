@@ -1,9 +1,21 @@
 import React from 'react'
+import CenterList from './views/centers/list/CenterList'
+import AddCenter from './views/centers/add/AddCenter'
+import SubCenterList from './views/sub-centers/list/SubCenterList'
+import SchoolList from './views/schools/list/SchoolList'
+import StudentList from './views/students/list/StudentList'
+import AddSubCenter from './views/sub-centers/add/AddSubCenter'
+import SearchSubCenter from './views/sub-centers/search/SearchSubCenter'
+import SearchClassroom from './views/classrooms/search/SearchClassroom'
+import ClassroomList from './views/classrooms/list/ClassroomList'
+import AddClassroom from './views/classrooms/add/AddClassroom'
+import SearchSchool from './views/schools/search/SearchSchool'
+import AddSchool from './views/schools/add/AddSchool'
+import SearchStudent from './views/students/search/SearchStudent'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
-
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -19,12 +31,11 @@ const Progress = React.lazy(() => import('./views/base/progress/Progress'))
 const Spinners = React.lazy(() => import('./views/base/spinners/Spinners'))
 const Tables = React.lazy(() => import('./views/base/tables/Tables'))
 const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'))
-
+const SearchCenter = React.lazy(() => import('./views/centers/search/SearchCenter'))
 // Buttons
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
 const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'))
 const Dropdowns = React.lazy(() => import('./views/buttons/dropdowns/Dropdowns'))
-
 //Forms
 const ChecksRadios = React.lazy(() => import('./views/forms/checks-radios/ChecksRadios'))
 const FloatingLabels = React.lazy(() => import('./views/forms/floating-labels/FloatingLabels'))
@@ -68,13 +79,27 @@ const routes = [
   { path: '/base/placeholders', name: 'Placeholders', element: Placeholders },
   { path: '/base/popovers', name: 'Popovers', element: Popovers },
   { path: '/base/progress', name: 'Progress', element: Progress },
-  { path: '/base/spinners', name: 'Spinners', element: Spinners },
-  { path: '/base/tables', name: 'Tables', element: Tables },
-  { path: '/base/tooltips', name: 'Tooltips', element: Tooltips },
-  { path: '/buttons', name: 'Buttons', element: Buttons, exact: true },
-  { path: '/buttons/buttons', name: 'Buttons', element: Buttons },
-  { path: '/buttons/dropdowns', name: 'Dropdowns', element: Dropdowns },
-  { path: '/buttons/button-groups', name: 'Button Groups', element: ButtonGroups },
+  { path: '/centers', name: 'Centres', element: Cards, exact: true },
+  { path: '/centers/', name: 'Liste', element: CenterList },
+  { path: '/centers/list', name: 'Liste', element: CenterList },
+  { path: '/centers/add', name: 'Ajouter', element: AddCenter },
+  { path: '/centers/search', name: 'Rechercher', element: SearchCenter },
+  { path: '/subcenters', name: 'Sous Centres', element: SubCenterList, exact: true },
+  { path: '/subcenters/list', name: 'Liste', element: SubCenterList },
+  { path: '/subcenters/add', name: 'Ajouter', element: AddSubCenter },
+  { path: '/subcenters/search', name: 'Rechercher', element: SearchSubCenter },
+  { path: '/classrooms', name: 'Salle de classe', element: ClassroomList, exact: true },
+  { path: '/classrooms/list', name: 'Liste', element: ClassroomList },
+  { path: '/classrooms/add', name: 'Ajouter', element: AddClassroom },
+  { path: '/classrooms/search', name: 'Rechercher', element: SearchClassroom },
+  { path: '/schools', name: 'Ecoles', element: SchoolList, exact: true },
+  { path: '/schools/list', name: 'Liste', element: SchoolList },
+  { path: '/schools/add', name: 'Ajouter', element: AddSchool },
+  { path: '/schools/search', name: 'Rechercher', element: SearchSchool },
+  { path: '/students', name: 'Eleves', element: StudentList, exact: true },
+  { path: '/students/list', name: 'Liste', element: StudentList },
+  { path: '/students/add', name: 'Ajouter', element: Dropdowns },
+  { path: '/students/search', name: 'Rechercher', element: SearchStudent },
   { path: '/charts', name: 'Charts', element: Charts },
   { path: '/forms', name: 'Forms', element: FormControl, exact: true },
   { path: '/forms/form-control', name: 'Form Control', element: FormControl },

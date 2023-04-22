@@ -16,13 +16,13 @@ import {
 } from '@coreui/react'
 import { DocsExample } from 'src/components'
 
-const ButtonGroups = () => {
+const AddCenter = () => {
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Ajouter un Sous Centre</strong>
+            <strong>Ajouter un Centre d&apos;examen</strong>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
@@ -69,4 +69,4 @@ const ButtonGroups = () => {
   )
 }
 
-export default ButtonGroups
+export default AddCenter
