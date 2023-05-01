@@ -5,8 +5,8 @@ import Student from './Student'
 const Students = ({ students }) => {
   return (
     <CTableBody>
-      {students.map((student) => (
-        <Student student={student} key={student.id} />
+      {students.map((student, index) => (
+        <Student student={student} key={student.id} inc={index+1} />
       ))}
     </CTableBody>
   )

@@ -12,6 +12,14 @@ import AddClassroom from './views/classrooms/add/AddClassroom'
 import SearchSchool from './views/schools/search/SearchSchool'
 import AddSchool from './views/schools/add/AddSchool'
 import SearchStudent from './views/students/search/SearchStudent'
+import AddStudent from './views/students/add/AddStudent'
+import State1List from './views/states/state1/State1List'
+import State2List from './views/states/state2/State2List'
+import State3List from './views/states/state3/State3List'
+import State4List from './views/states/state4/State4List'
+import MatiereList from './views/matieres/list/MatiereList'
+import AddMatiere from './views/matieres/add/AddMatiere'
+import SearchMatiere from './views/matieres/search/SearchMatiere'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -98,13 +106,16 @@ const routes = [
   { path: '/schools/search', name: 'Rechercher', element: SearchSchool },
   { path: '/students', name: 'Eleves', element: StudentList, exact: true },
   { path: '/students/list', name: 'Liste', element: StudentList },
-  { path: '/students/add', name: 'Ajouter', element: Dropdowns },
+  { path: '/students/add', name: 'Ajouter', element: AddStudent },
   { path: '/students/search', name: 'Rechercher', element: SearchStudent },
-  { path: '/charts', name: 'Charts', element: Charts },
-  { path: '/forms', name: 'Forms', element: FormControl, exact: true },
-  { path: '/forms/form-control', name: 'Form Control', element: FormControl },
-  { path: '/forms/select', name: 'Select', element: Select },
-  { path: '/forms/checks-radios', name: 'Checks & Radios', element: ChecksRadios },
+  { path: '/state1', name: 'Etat1', element: State1List },
+  { path: '/state2', name: 'Etat2', element: State2List, exact: true },
+  { path: '/state3', name: 'Etat3', element: State3List },
+  { path: '/state4', name: 'Etat4', element: State4List },
+  { path: '/matieres', name: 'Matieres', element: MatiereList, exact: true },
+  { path: '/matieres/list', name: 'Liste', element: MatiereList },
+  { path: '/matieres/add', name: 'Ajouter', element: AddMatiere },
+  { path: '/matieres/search', name: 'Rechercher', element: SearchMatiere },
   { path: '/forms/range', name: 'Range', element: Range },
   { path: '/forms/input-group', name: 'Input Group', element: InputGroup },
   { path: '/forms/floating-labels', name: 'Floating Labels', element: FloatingLabels },

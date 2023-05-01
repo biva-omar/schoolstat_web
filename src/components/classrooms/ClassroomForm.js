@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CButton, CCol, CForm, CFormInput, CFormLabel, CRow, CFormFeedback, CFormSelect } from '@coreui/react'
 
-const ClassroomForm = ({addClassroom}) => {
+const ClassroomForm = ({addClassroom, subCenters}) => {
   
   const [validated, setValidated] = useState(false)
   const [label, setLabel] = useState('')
@@ -48,9 +48,13 @@ const ClassroomForm = ({addClassroom}) => {
                 <CCol sm={10}>
                   <CFormSelect id="inlineFormSelectPref" value={subCenter} onChange={(e) => setSubCenter(e.target.value)} required>
                     <option value={''}>Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {
+                      subCenters.map(
+                        (subCenter, index) => (
+                          <option key={index} value={subCenter.id}>{subCenter.label}</option>
+                        )
+                      )
+                    }
                   </CFormSelect>
                 </CCol>
               </CRow>

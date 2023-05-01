@@ -4,9 +4,11 @@ import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
 import routes from '../routes'
+import Login from 'src/views/pages/login/Login'
 
-const AppContent = () => {
-  return (
+const AppContent = ({isAuthenticated}) => {
+  console.log(isAuthenticated)
+  return isAuthenticated ? (
     <CContainer lg>
       <Suspense fallback={<CSpinner color="primary" />}>
         <Routes>
@@ -27,6 +29,8 @@ const AppContent = () => {
         </Routes>
       </Suspense>
     </CContainer>
+  ) : (
+    <Navigate to="login" replace />
   )
 }
 

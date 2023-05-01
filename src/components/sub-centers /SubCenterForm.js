@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { CButton, CCol, CForm, CFormInput, CFormLabel, CRow, CFormFeedback, CFormSelect } from '@coreui/react'
 
-const SubCenterForm = ({addSubCenter}) => {
+const SubCenterForm = ({addSubCenter, centers}) => {
   
   const [validated, setValidated] = useState(false)
   const [label, setLabel] = useState('')
   const [center, setCenter] = useState('')
   const [description, setDescription] = useState('')
+
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -21,6 +22,7 @@ const SubCenterForm = ({addSubCenter}) => {
     }
     
   }
+
 
   return (
     <CForm onSubmit={handleSubmit} noValidate validated={validated} >
@@ -46,8 +48,13 @@ const SubCenterForm = ({addSubCenter}) => {
                   Centre d&apos;Examen
                 </CFormLabel>
                 <CCol sm={10}>
-                  <CFormSelect id="inlineFormSelectPref" value={center} onChange={(e) => setCenter(e.target.value)} required>
+                  <CFormSelect id="inlineFormSelectPref" value={center}  onChange={(e) => setCenter(e.target.value)} required>
                     <option value={''}>Choose...</option>
+                    {
+                      centers.map((center) => (
+                        <option key={center.id} value={center.id}>{center.label}</option>
+                      ))
+                    }
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>

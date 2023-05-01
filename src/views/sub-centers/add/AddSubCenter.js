@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CCard, CCardBody, CCardHeader, CCol, CRow, } from '@coreui/react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ const AddSubCenter = () => {
 
   const baseUrl ='http://localhost:8081';
   const navigate = useNavigate()
+  const [centers, setCenters] = useState([])
 
   const addSubCenter = async (subCenter) => {
     const headers = { 
@@ -31,6 +32,31 @@ const AddSubCenter = () => {
         });
   }
 
+  const loadCenter = () => {
+    const headers = { 
+      /*'Authorization': 'Bearer my-token',*/
+      'Content-type': 'application/json',
+    };
+    
+    axios.get(baseUrl+'/exam-centers/')
+        .then(response => {
+          if(response.status == 200 ){
+            setCenters(response.data)
+            
+          }else{
+            return []
+          }
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+            return []
+        });
+  }
+
+  useEffect(() => {   
+    loadCenter();
+  }, []);
+
   return (
     <CRow>
       <CCol xs={12}>
@@ -39,7 +65,7 @@ const AddSubCenter = () => {
             <strong>Ajouter un Centre Sous d&apos;examen</strong>
           </CCardHeader>
           <CCardBody>
-            <SubCenterForm addSubCenter={addSubCenter} />
+            <SubCenterForm addSubCenter={addSubCenter} centers={centers} />
           </CCardBody>
         </CCard>
       </CCol>

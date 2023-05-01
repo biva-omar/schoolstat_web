@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
+  CButton,
   CCard,
   CCardBody,
   CCardHeader,
@@ -13,6 +14,9 @@ import {
 import { DocsExample } from 'src/components'
 import Centers from 'src/components/centers/Centers'
 import SubCenters from 'src/components/sub-centers /SubCenters'
+import CIcon from '@coreui/icons-react'
+import { cilPlus } from '@coreui/icons'
+import { Link } from 'react-router-dom'
 
 const SubCenterList = () => {
   const baseUrl = 'http://localhost:8081'
@@ -38,14 +42,20 @@ const SubCenterList = () => {
         <CCard className="mb-4">
           <CCardHeader>
             <strong>Liste des Sous Centres d&apos;Examen</strong>
+            <Link to={'/subcenters/add'}>
+              <CButton color="primary" size="sm" style={{float: 'right'}} >
+                <CIcon icon={cilPlus} className='me-2' />
+                Ajouter
+              </CButton>
+            </Link>
           </CCardHeader>
           <CCardBody>
             <CTable>
               <CTableHead>
                 <CTableRow>
                   <CTableHeaderCell scope="col">#</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Centres d&apos;examen</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Description</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Sous centres d&apos;examen</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Centres</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>

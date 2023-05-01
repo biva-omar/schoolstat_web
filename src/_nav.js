@@ -1,12 +1,19 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
+  cilBuilding,
   cilCalculator,
   cilCursor,
+  cilHome,
+  cilLibraryBuilding,
   cilNotes,
+  cilPeople,
   cilPuzzle,
+  cilSchool,
+  cilSitemap,
   cilSpeedometer,
   cilStar,
+  cilUser,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -25,7 +32,7 @@ const _nav = [
     component: CNavGroup,
     name: "Centres d'Examen",
     to: '/base',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilLibraryBuilding} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -48,7 +55,7 @@ const _nav = [
     component: CNavGroup,
     name: 'Sous Centres',
     to: '/buttons',
-    icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -70,7 +77,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: "Salle d'Examen",
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -92,7 +99,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Etablissements',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilSchool} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -117,17 +124,36 @@ const _nav = [
   },
   {
     component: CNavGroup,
+    name: "Matieres",
+    to: '/base',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Liste des matieres',
+        to: '/matieres/',
+      },
+      {
+        component: CNavItem,
+        name: 'Ajouter une matiere',
+        to: '/matieres/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Rechercher une matiere',
+        to: '/matieres/search',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
     name: 'Eleves',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'Liste des eleves',
         to: '/students/list',
-        badge: {
-          color: 'success',
-          text: 'NEW',
-        },
       },
       {
         component: CNavItem,
@@ -146,6 +172,34 @@ const _nav = [
     name: 'Widgets',
     to: '/widgets',
     icon: <CIcon icon={cilCalculator} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavGroup,
+    name: 'Etats',
+    to: '/state1',
+    icon: <CIcon icon={cilSitemap} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Etat 1',
+        to: '/state1',
+      },
+      {
+        component: CNavItem,
+        name: 'Etat 2',
+        to: '/state2',
+      },
+      {
+        component: CNavItem,
+        name: 'Etat 3',
+        to: '/state3',
+      },
+      {
+        component: CNavItem,
+        name: 'Etat 4',
+        to: '/state4',
+      },
+    ],
   },
 ]
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
+  CButton,
   CCard,
   CCardBody,
   CCardHeader,
@@ -13,6 +14,9 @@ import {
 import { DocsExample } from 'src/components'
 import Centers from 'src/components/centers/Centers'
 import Students from 'src/components/students/Students'
+import CIcon from '@coreui/icons-react'
+import { cilPlus } from '@coreui/icons'
+import { Link } from 'react-router-dom'
 
 const StudentList = () => {
   const baseUrl = 'http://localhost:8081'
@@ -38,6 +42,12 @@ const StudentList = () => {
         <CCard className="mb-4">
           <CCardHeader>
             <strong>Liste d&apos;Eleves</strong>
+            <Link to={'/students/add'}>
+              <CButton color="primary" size="sm" style={{float: 'right'}} >
+                <CIcon icon={cilPlus} className='me-2' />
+                Ajouter
+              </CButton>
+            </Link>
           </CCardHeader>
           <CCardBody>
             <CTable>
@@ -48,6 +58,7 @@ const StudentList = () => {
                   <CTableHeaderCell scope="col">Prenoms</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Date de Naissance</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Sexe</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Etablissement</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>

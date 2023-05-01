@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { CButton, CCol, CForm, CFormInput, CFormLabel, CRow, CFormFeedback, CFormSelect } from '@coreui/react'
 
-const SchoolForm = ({addSchool}) => {
+const SchoolForm = ({addSchool, subCenters, ordres}) => {
   
   const [validated, setValidated] = useState(false)
   const [label, setLabel] = useState('')
   const [subCenter, setSubCenter] = useState('')
   const [description, setDescription] = useState('')
+  const [ordre, setOrdre] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -16,7 +17,7 @@ const SchoolForm = ({addSchool}) => {
       event.preventDefault()
       event.stopPropagation()
     }else{
-      addSchool({label, examSubCenterId: subCenter})
+      addSchool({label, examSubCenterId: subCenter, teachingOrder: ordre})
 
     }
     
@@ -48,9 +49,30 @@ const SchoolForm = ({addSchool}) => {
                 <CCol sm={10}>
                   <CFormSelect id="inlineFormSelectPref" value={subCenter} onChange={(e) => setSubCenter(e.target.value)} required>
                     <option value={''}>Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {
+                      subCenters.map(
+                        (subCenter, index) => (
+                          <option key={index} value={subCenter.id}>{subCenter.label}</option>
+                        )
+                      )
+                    }
+                  </CFormSelect>
+                </CCol>
+              </CRow>
+              <CRow className="mb-3">
+                <CFormLabel htmlFor="inputPassword3" className="col-sm-2 col-form-label">
+                  Ordre enseignement
+                </CFormLabel>
+                <CCol sm={10}>
+                  <CFormSelect id="inlineFormSelectPref" value={ordre} onChange={(e) => setOrdre(e.target.value)} required>
+                    <option value={''}>Choose...</option>
+                    {
+                      ordres.map(
+                        (ordre, index) => (
+                          <option key={index} value={ordre.label}>{ordre.label}</option>
+                        )
+                      )
+                    }
                   </CFormSelect>
                 </CCol>
               </CRow>

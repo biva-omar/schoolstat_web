@@ -5,8 +5,8 @@ import Center from './Center'
 const Centers = ({ centers }) => {
   return (
     <CTableBody>
-      {centers.map((center) => (
-        <Center center={center} key={center.id} />
+      {centers.map((center, index) => (
+        <Center center={center} key={"1"}  inc={index+1} />
       ))}
     </CTableBody>
   )

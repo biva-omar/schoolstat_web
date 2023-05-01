@@ -1,19 +1,139 @@
-import React from 'react'
-import {
-  CRow,
-  CCol,
-  CDropdown,
-  CDropdownMenu,
-  CDropdownItem,
-  CDropdownToggle,
-  CWidgetStatsA,
-} from '@coreui/react'
+import React, { useEffect, useState } from 'react'
+import { CRow, CCol, CDropdown, CDropdownMenu, CDropdownItem, CDropdownToggle, CWidgetStatsA, } from '@coreui/react'
 import { getStyle } from '@coreui/utils'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
-import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
+import { cilArrowTop, cilBuilding, cilOptions, cilPeople, cilSchool, } from '@coreui/icons'
+import axios from 'axios'
 
 const WidgetsDropdown = () => {
+  const baseUrl = 'http://localhost:8081'
+  const countTrainingOrderUrl = baseUrl + '/training-orders/count'
+  const countSubCenterUrl = baseUrl + '/exam-sub-centers/count'
+  const countSchoolUrl = baseUrl + '/schools/count'
+  const countStudentUrl = baseUrl + '/students/count'
+  const countStudentBySubCenterUrl = baseUrl + '/students/count-by-sub-centers'
+  const countStudentBySchoolUrl = baseUrl + '/students/count-by-schools'
+  const countSchoolBySubCenterUrl = baseUrl + '/schools/count-by-sub-centers'
+
+  const [nSubCenter, setNSubCenter] = useState(0)
+  const [nSchool, setNSchool] = useState(0)
+  const [nStudent, setNStudent] = useState(0)
+  const [nTrainingOrder, setNTrainingOrder] = useState(0)
+  const [nStudentBySubCenter, setNStudentBySubCenter] = useState([])
+  const [nStudentBySchool, setNStudentBySchool] = useState([])
+  const [nSchoolBySubCenter, setNSchoolBySubCenter] = useState([])
+
+  const countTrainingOrder = async (url) => {
+    axios.get(url)
+        .then(response => {
+          if(response.status == 200 ){
+            setNTrainingOrder(response.data)
+          }else{
+            setNTrainingOrder(10000)
+          }
+        })
+        .catch(error => {
+            setNTrainingOrder('Error...')
+        });
+  }
+
+  const countSubCenter = async (url) => {
+    axios.get(url)
+        .then(response => {
+          if(response.status == 200 ){
+            setNSubCenter(response.data)
+          }else{
+            setNSubCenter('Error...')
+          }
+        })
+        .catch(error => {
+          setNSubCenter('Error...')
+        });
+  }
+
+  const countSchool = async (url) => {
+    axios.get(url)
+        .then(response => {
+          if(response.status == 200 ){
+            setNSchool(response.data)
+          }else{
+            setNSchool('Error...')
+          }
+        })
+        .catch(error => {
+          setNSchool('Error...')
+        });
+  }
+
+  const countStudent = async (url) => {
+    axios.get(url)
+        .then(response => {
+          if(response.status == 200 ){
+            setNStudent(response.data)
+          }else{
+            setNStudent('Error...')
+          }
+        })
+        .catch(error => {
+          setNStudent('Error...')
+        });
+  }
+
+  const countStudentBySubCenter = async (url) => {
+    axios.get(url)
+        .then(response => {
+          if(response.status == 200 ){
+            setNStudentBySubCenter(response.data)
+          }else{
+          }
+        })
+        .catch(error => {
+        });
+  }
+
+  const countStudentBySchool = async (url) => {
+    axios.get(url)
+        .then(response => {
+          if(response.status == 200 ){
+            setNStudentBySchool(response.data)
+          }else{
+          }
+        })
+        .catch(error => {
+        });
+  }
+
+  const countSchoolBySubCenter = async (url) => {
+    axios.get(url)
+        .then(response => {
+          if(response.status == 200 ){
+            setNSchoolBySubCenter(response.data)
+          }else{
+          }
+        })
+        .catch(error => {
+        });
+  }
+  useEffect(() => {
+    countTrainingOrder(countSchoolUrl)
+    countSubCenter(countSubCenterUrl)
+    countSchool(countSchoolUrl)
+    countStudent(countStudentUrl)
+    countStudentBySubCenter(countStudentBySubCenterUrl)
+    countStudentBySubCenter(countStudentBySubCenterUrl)
+    countStudentBySchool(countStudentBySchoolUrl)
+    countSchoolBySubCenter(countSchoolBySubCenterUrl)
+    
+  }, [])
+
+  const fetchCount = async (url) => {
+    const res = await fetch(url)
+    const data = await res.json()
+    return data
+    
+  }
+
   return (
     <CRow>
       <CCol sm={6} lg={3}>
@@ -22,13 +142,13 @@ const WidgetsDropdown = () => {
           color="primary"
           value={
             <>
-              26K{' '}
-              <span className="fs-6 fw-normal">
-                (-12.4% <CIcon icon={cilArrowBottom} />)
+              {nTrainingOrder}{' '}
+              <span className="fs-5 fw-normal">
+                Ordres <CIcon icon={cilSchool} />
               </span>
             </>
           }
-          title="Users"
+          title="Ecoles par ordre"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="p-0">
@@ -47,14 +167,14 @@ const WidgetsDropdown = () => {
               className="mt-3 mx-3"
               style={{ height: '70px' }}
               data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: nStudentBySubCenter.map(e => e.label),
                 datasets: [
                   {
-                    label: 'My First dataset',
+                    label: 'Nombre d\'ecoles',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
                     pointBackgroundColor: getStyle('--cui-primary'),
-                    data: [65, 59, 84, 84, 51, 55, 40],
+                    data: nStudentBySubCenter.map(e => e.count),
                   },
                 ],
               }}
@@ -76,8 +196,8 @@ const WidgetsDropdown = () => {
                     },
                   },
                   y: {
-                    min: 30,
-                    max: 89,
+                    /*min: 2,
+                    max: 40,*/
                     display: false,
                     grid: {
                       display: false,
@@ -109,13 +229,16 @@ const WidgetsDropdown = () => {
           color="info"
           value={
             <>
-              $6.200{' '}
-              <span className="fs-6 fw-normal">
+              {nSubCenter}{' '}
+              <span className="fs-6 fw-normal" style={{display: 'none'}}>
                 (40.9% <CIcon icon={cilArrowTop} />)
+              </span>
+              <span className="fs-5 fw-normal">
+                Sous Centres <CIcon icon={cilBuilding} />
               </span>
             </>
           }
-          title="Income"
+          title="Eleves par sous centre"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="p-0">
@@ -134,14 +257,14 @@ const WidgetsDropdown = () => {
               className="mt-3 mx-3"
               style={{ height: '70px' }}
               data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: nStudentBySubCenter.map(e => e.label),
                 datasets: [
                   {
-                    label: 'My First dataset',
+                    label: 'Nombre d\'eleves',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
                     pointBackgroundColor: getStyle('--cui-info'),
-                    data: [1, 18, 9, 17, 34, 22, 11],
+                    data: nStudentBySubCenter.map(e => e.count),
                   },
                 ],
               }}
@@ -163,8 +286,8 @@ const WidgetsDropdown = () => {
                     },
                   },
                   y: {
-                    min: -9,
-                    max: 39,
+                   /* min: 0,
+                    max: 40,*/
                     display: false,
                     grid: {
                       display: false,
@@ -195,13 +318,13 @@ const WidgetsDropdown = () => {
           color="warning"
           value={
             <>
-              2.49{' '}
-              <span className="fs-6 fw-normal">
-                (84.7% <CIcon icon={cilArrowTop} />)
+              {nSchool}{' '}
+              <span className="fs-5 fw-normal">
+                Ecoles <CIcon icon={cilSchool} />
               </span>
             </>
           }
-          title="Conversion Rate"
+          title="Ecoles par sous centre"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="p-0">
@@ -220,13 +343,13 @@ const WidgetsDropdown = () => {
               className="mt-3"
               style={{ height: '70px' }}
               data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: nSchoolBySubCenter.map(e => e.label),
                 datasets: [
                   {
-                    label: 'My First dataset',
+                    label: 'Nombres d\'ecoles',
                     backgroundColor: 'rgba(255,255,255,.2)',
                     borderColor: 'rgba(255,255,255,.55)',
-                    data: [78, 81, 80, 45, 34, 12, 40],
+                    data: nSchoolBySubCenter.map(e => e.count),
                     fill: true,
                   },
                 ],
@@ -252,9 +375,9 @@ const WidgetsDropdown = () => {
                     tension: 0.4,
                   },
                   point: {
-                    radius: 0,
+                    radius: 3,
                     hitRadius: 10,
-                    hoverRadius: 4,
+                    hoverRadius: 5,
                   },
                 },
               }}
@@ -268,13 +391,13 @@ const WidgetsDropdown = () => {
           color="danger"
           value={
             <>
-              44K{' '}
-              <span className="fs-6 fw-normal">
-                (-23.6% <CIcon icon={cilArrowBottom} />)
+              {nStudent}{' '}
+              <span className="fs-5 fw-normal">
+                Eleves <CIcon icon={cilPeople} />
               </span>
             </>
           }
-          title="Sessions"
+          title="Eleves par ecole"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="p-0">
@@ -293,30 +416,13 @@ const WidgetsDropdown = () => {
               className="mt-3 mx-3"
               style={{ height: '70px' }}
               data={{
-                labels: [
-                  'January',
-                  'February',
-                  'March',
-                  'April',
-                  'May',
-                  'June',
-                  'July',
-                  'August',
-                  'September',
-                  'October',
-                  'November',
-                  'December',
-                  'January',
-                  'February',
-                  'March',
-                  'April',
-                ],
+                labels: nStudentBySchool.map(e => e.label),
                 datasets: [
                   {
-                    label: 'My First dataset',
+                    label: 'Nombre d\'eleves',
                     backgroundColor: 'rgba(255,255,255,.2)',
                     borderColor: 'rgba(255,255,255,.55)',
-                    data: [78, 81, 80, 45, 34, 12, 40, 85, 65, 23, 12, 98, 34, 84, 67, 82],
+                    data: nStudentBySchool.map(e => e.count),
                     barPercentage: 0.6,
                   },
                 ],

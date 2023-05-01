@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
+  CButton,
   CCard,
   CCardBody,
   CCardHeader,
@@ -13,6 +14,9 @@ import {
 import { DocsExample } from 'src/components'
 import Centers from 'src/components/centers/Centers'
 import Classrooms from 'src/components/classrooms/Classrooms'
+import CIcon from '@coreui/icons-react'
+import { cilPlus } from '@coreui/icons'
+import { Link } from 'react-router-dom'
 
 const ClassroomList = () => {
   const baseUrl = 'http://localhost:8081'
@@ -38,6 +42,12 @@ const ClassroomList = () => {
         <CCard className="mb-4">
           <CCardHeader>
             <strong>Liste des salles d&apos;examen</strong>
+            <Link to={'/classrooms/add'}>
+              <CButton color="primary" size="sm" style={{float: 'right'}} >
+                <CIcon icon={cilPlus} className='me-2' />
+                Ajouter
+              </CButton>
+            </Link>
           </CCardHeader>
           <CCardBody>
             <CTable>
