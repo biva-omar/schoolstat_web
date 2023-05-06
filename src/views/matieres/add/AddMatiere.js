@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import MatiereForm from 'src/components/matieres/MatiereForm';
+import { headers } from 'src/AppConfig';
 
 const AddMatiere = () => {
 
@@ -12,12 +13,8 @@ const AddMatiere = () => {
   const navigate = useNavigate()
  
   const addMatiere = async (matiere) => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
-    
-    axios.post(baseUrl+'/matieres/', matiere, {headers})
+
+    axios.post(baseUrl+'/matieres/', matiere, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             toast.success('Nouvelle matière enregistré !', {autoClose:3000})

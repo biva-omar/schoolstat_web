@@ -48,6 +48,8 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import axios from 'axios'
+import { headers } from 'src/AppConfig'
+
 
 const Dashboard = () => {
   const baseUrl = 'http://localhost:8081'
@@ -66,7 +68,8 @@ const Dashboard = () => {
   const progressExample = []
 
   const countStudentBySubCenter = async (url) => {
-    axios.get(url)
+    console.log(headers)
+    axios.get(url, {headers})
         .then(response => {
           if(response.status == 200 ){
             setNStudentBySubCenter(response.data)

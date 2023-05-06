@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import ClassroomForm from 'src/components/classrooms/ClassroomForm';
+import { headers } from 'src/AppConfig';
 
 const AddClassroom = () => {
 
@@ -12,12 +13,8 @@ const AddClassroom = () => {
   const [subCenters, setSubCenters] = useState([])
  
   const addClassroom = async (classroom) => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
     
-    axios.post(baseUrl+'/exam-classrooms/', classroom, {headers})
+    axios.post(baseUrl+'/exam-classrooms/', classroom, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             toast.success('Nouveau salle enregistré !', {autoClose:3000})
@@ -34,12 +31,8 @@ const AddClassroom = () => {
 
 
   const loadSubCenter = () => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
     
-    axios.get(baseUrl+'/exam-sub-centers/')
+    axios.get(baseUrl+'/exam-sub-centers/', {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setSubCenters(response.data)

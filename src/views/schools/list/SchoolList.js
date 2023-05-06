@@ -16,6 +16,7 @@ import Schools from 'src/components/schools/Schools'
 import CIcon from '@coreui/icons-react'
 import { cilPlus } from '@coreui/icons'
 import { Link } from 'react-router-dom'
+import { headers } from 'src/AppConfig'
 
 const SchoolList = () => {
   const baseUrl = 'http://localhost:8081'
@@ -29,7 +30,7 @@ const SchoolList = () => {
   }, [])
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/schools/')
+    const res = await fetch(baseUrl + '/schools/', {headers: headers})
     const data = await res.json()
     return data
   }

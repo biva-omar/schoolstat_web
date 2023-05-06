@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import {
-  CButton,
   CCard,
   CCardBody,
   CCardHeader,
   CCol,
   CRow,
-  CTable,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
 } from '@coreui/react'
-import { DocsExample } from 'src/components'
-import Centers from 'src/components/centers/Centers'
-import Students from 'src/components/students/Students'
-import CIcon from '@coreui/icons-react'
-import { cilPlus } from '@coreui/icons'
 import States3 from 'src/components/states/States3'
 import GeneratePDF from 'src/components/GeneratePDF'
+import { headers } from 'src/AppConfig'
 
 const State3List = () => {
   const baseUrl = 'http://localhost:8081'
@@ -31,7 +22,7 @@ const State3List = () => {
   }, [])
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/students/state3/')
+    const res = await fetch(baseUrl + '/students/state3/', {headers: headers})
     const data = await res.json()
     return data
   }
@@ -43,37 +34,10 @@ const State3List = () => {
         <CCard className="mb-4">
           <CCardHeader>
             <strong>Etat3</strong>
-            <GeneratePDF object={list} />
+            <GeneratePDF object={list} state={'3'} />
           </CCardHeader>
           <CCardBody>
-            <CTable bordered>
-              <CTableHead>
-                <CTableRow>
-                  <CTableHeaderCell scope="col" rowSpan={2}>#</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" rowSpan={2}>ordre enseignement</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" colSpan={3}>inscrits</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" colSpan={3}>presents</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" colSpan={3}>admis</CTableHeaderCell>
-                  <CTableHeaderCell scope="col" colSpan={3}>%</CTableHeaderCell>
-                </CTableRow>
-                <CTableRow>
-                  
-                  <CTableHeaderCell scope="col">G</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">F</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">T</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">G</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">F</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">T</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">G</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">F</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">T</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">G</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">F</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">T</CTableHeaderCell>
-                </CTableRow>
-              </CTableHead>
-              <States3 states={list} />
-            </CTable>
+            <States3 states={list} />   
           </CCardBody>
         </CCard>
       </CCol>

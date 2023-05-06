@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SubCenterForm from 'src/components/sub-centers /SubCenterForm';
+import { headers } from 'src/AppConfig';
 
 
 const AddSubCenter = () => {
@@ -13,12 +14,8 @@ const AddSubCenter = () => {
   const [centers, setCenters] = useState([])
 
   const addSubCenter = async (subCenter) => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
     
-    axios.post(baseUrl+'/exam-sub-centers/', subCenter, {headers})
+    axios.post(baseUrl+'/exam-sub-centers/', subCenter, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             toast.success('Nouveau sous centre enregistré !', {autoClose:3000})
@@ -33,12 +30,8 @@ const AddSubCenter = () => {
   }
 
   const loadCenter = () => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
     
-    axios.get(baseUrl+'/exam-centers/')
+    axios.get(baseUrl+'/exam-centers/', {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setCenters(response.data)

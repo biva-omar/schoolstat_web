@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SchoolForm from 'src/components/schools/SchoolForm';
+import { headers } from 'src/AppConfig';
 
 
 const AddSchool = () => {
@@ -14,12 +15,8 @@ const AddSchool = () => {
   const [orders, setOrders] = useState([])
 
   const addSchool = async (school) => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
     
-    axios.post(baseUrl+'/schools/', school, {headers})
+    axios.post(baseUrl+'/schools/', school, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             toast.success('Nouvel etablissement enregistré !', {autoClose:3000})
@@ -34,12 +31,8 @@ const AddSchool = () => {
   }
 
   const loadSubCenter = () => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
-    
-    axios.get(baseUrl+'/exam-sub-centers/')
+    console.log(headers)
+    axios.get(baseUrl+'/exam-sub-centers/', {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setSubCenters(response.data)
@@ -56,12 +49,8 @@ const AddSchool = () => {
 
 
   const loadOrder = () => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
     
-    axios.get(baseUrl+'/teaching-order/')
+    axios.get(baseUrl+'/teaching-order/', {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setOrders(response.data)

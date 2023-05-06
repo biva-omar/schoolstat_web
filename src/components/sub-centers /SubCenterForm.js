@@ -55,9 +55,6 @@ const SubCenterForm = ({addSubCenter, centers}) => {
                         <option key={center.id} value={center.id}>{center.label}</option>
                       ))
                     }
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
                   </CFormSelect>
                 </CCol>
               </CRow>

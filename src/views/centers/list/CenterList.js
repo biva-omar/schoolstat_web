@@ -16,6 +16,7 @@ import Centers from 'src/components/centers/Centers'
 import CIcon from '@coreui/icons-react'
 import { cilPlus } from '@coreui/icons'
 import { Link } from 'react-router-dom'
+import { headers } from 'src/AppConfig'
 
 const CenterList = () => {
   const baseUrl = 'http://localhost:8081'
@@ -29,7 +30,7 @@ const CenterList = () => {
   }, [])
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/exam-centers/')
+    const res = await fetch(baseUrl + '/exam-centers/', {headers: headers})
     const data = await res.json()
     return data
   }

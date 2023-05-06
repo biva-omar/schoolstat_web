@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, redirect, useNavigate } from 'react-router-dom'
 import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CFormFeedback, CFormInput, CInputGroup, CInputGroupText, CRow, } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
@@ -34,7 +34,8 @@ const Login = ({isAuthenticated}) => {
         try{
           const response = await login(anonyHeaders)
           //isAuthenticated = response.data
-          navagation('/dashboard', { replace: false })
+          //navagation('/dashboard', { replace: true })
+          window.location.href = "#/dashboard";
         }catch(response){
            console.log(response)
         }

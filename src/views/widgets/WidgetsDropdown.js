@@ -5,6 +5,7 @@ import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 import { cilArrowTop, cilBuilding, cilOptions, cilPeople, cilSchool, } from '@coreui/icons'
 import axios from 'axios'
+import { headers } from 'src/AppConfig'
 
 const WidgetsDropdown = () => {
   const baseUrl = 'http://localhost:8081'
@@ -25,7 +26,7 @@ const WidgetsDropdown = () => {
   const [nSchoolBySubCenter, setNSchoolBySubCenter] = useState([])
 
   const countTrainingOrder = async (url) => {
-    axios.get(url)
+    axios.get(url, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setNTrainingOrder(response.data)
@@ -39,7 +40,7 @@ const WidgetsDropdown = () => {
   }
 
   const countSubCenter = async (url) => {
-    axios.get(url)
+    axios.get(url, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setNSubCenter(response.data)
@@ -53,7 +54,7 @@ const WidgetsDropdown = () => {
   }
 
   const countSchool = async (url) => {
-    axios.get(url)
+    axios.get(url, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setNSchool(response.data)
@@ -67,7 +68,7 @@ const WidgetsDropdown = () => {
   }
 
   const countStudent = async (url) => {
-    axios.get(url)
+    axios.get(url, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setNStudent(response.data)
@@ -81,7 +82,7 @@ const WidgetsDropdown = () => {
   }
 
   const countStudentBySubCenter = async (url) => {
-    axios.get(url)
+    axios.get(url, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setNStudentBySubCenter(response.data)
@@ -93,7 +94,7 @@ const WidgetsDropdown = () => {
   }
 
   const countStudentBySchool = async (url) => {
-    axios.get(url)
+    axios.get(url, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setNStudentBySchool(response.data)
@@ -105,7 +106,7 @@ const WidgetsDropdown = () => {
   }
 
   const countSchoolBySubCenter = async (url) => {
-    axios.get(url)
+    axios.get(url, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setNSchoolBySubCenter(response.data)

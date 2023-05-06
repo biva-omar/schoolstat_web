@@ -17,6 +17,7 @@ import Classrooms from 'src/components/classrooms/Classrooms'
 import CIcon from '@coreui/icons-react'
 import { cilPlus } from '@coreui/icons'
 import { Link } from 'react-router-dom'
+import { headers } from 'src/AppConfig'
 
 const ClassroomList = () => {
   const baseUrl = 'http://localhost:8081'
@@ -30,7 +31,7 @@ const ClassroomList = () => {
   }, [])
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/exam-classrooms/')
+    const res = await fetch(baseUrl + '/exam-classrooms/', {headers: headers})
     const data = await res.json()
     return data
   }

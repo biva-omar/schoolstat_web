@@ -16,6 +16,7 @@ import CIcon from '@coreui/icons-react'
 import { cilPlus } from '@coreui/icons'
 import { Link } from 'react-router-dom'
 import Matieres from 'src/components/matieres/Matieres'
+import { headers } from 'src/AppConfig'
 
 const MatiereList = () => {
   const baseUrl = 'http://localhost:8081'
@@ -29,7 +30,7 @@ const MatiereList = () => {
   }, [])
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/matieres/')
+    const res = await fetch(baseUrl + '/matieres/', {headers: headers})
     const data = await res.json()
     return data
   }

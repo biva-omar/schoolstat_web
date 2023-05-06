@@ -4,6 +4,7 @@ import CenterForm from 'src/components/centers/CenterForm'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { headers } from 'src/AppConfig';
 
 const AddCenter = () => {
 
@@ -11,12 +12,8 @@ const AddCenter = () => {
   const navigate = useNavigate()
  
   const addCenter = async (center) => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
     
-    axios.post(baseUrl+'/exam-centers/', center, {headers})
+    axios.post(baseUrl+'/exam-centers/', center, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             toast.success('Nouveau centre enregistré !', {autoClose:3000})

@@ -19,12 +19,37 @@ import {
   cilSettings,
   cilTask,
   cilUser,
+  cilAccountLogout,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
+import { baseUrl, headers } from 'src/AppConfig'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { logout } from '../services/AuthApi'
+
+
 
 const AppHeaderDropdown = () => {
+
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    const hash = btoa(localStorage.getItem('username')  + ":" + localStorage.getItem('sessionId'));
+    const anonyHeaders = {
+      "Authorization":"Basic " + hash,
+      "Content-Type":"application/json"
+    }
+    alert("logout")
+    try{
+      logout(anonyHeaders)
+      navigate("/", { replace: true })
+    }catch(error){
+      console.error('There was an error!', error);
+    }
+  }
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
@@ -39,13 +64,7 @@ const AppHeaderDropdown = () => {
             42
           </CBadge>
         </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilEnvelopeOpen} className="me-2" />
-          Messages
-          <CBadge color="success" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
+        
         <CDropdownItem href="#">
           <CIcon icon={cilTask} className="me-2" />
           Tasks
@@ -53,13 +72,7 @@ const AppHeaderDropdown = () => {
             42
           </CBadge>
         </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilCommentSquare} className="me-2" />
-          Comments
-          <CBadge color="warning" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
+        
         <CDropdownHeader className="bg-light fw-semibold py-2">Settings</CDropdownHeader>
         <CDropdownItem href="#">
           <CIcon icon={cilUser} className="me-2" />
@@ -76,17 +89,11 @@ const AppHeaderDropdown = () => {
             42
           </CBadge>
         </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilFile} className="me-2" />
-          Projects
-          <CBadge color="primary" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
+        
         <CDropdownDivider />
-        <CDropdownItem href="#">
-          <CIcon icon={cilLockLocked} className="me-2" />
-          Lock Account
+        <CDropdownItem onClick={handleLogout}>
+          <CIcon icon={cilAccountLogout} className="me-2" />
+          Log out
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from 'react'
-import { HashRouter, Route, Routes, useNavigate } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './scss/style.scss'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -50,13 +50,23 @@ class App extends Component {
     });
   }
 
+
+  handleAuth = () => {
+      if(localStorage.getItem('token') == null){
+      return <Navigate to={'/'} />
+      }
+  }
+
+
   render() {
+    this.handleAuth()
     return (
       <Auth.Provider value={this.state.isAuthenticated}> 
       <HashRouter>
         <Suspense fallback={loading}>
         <ToastContainer />
           <Routes>
+          <Route exact path="/" name="Login Page" element={<Login />} setAuthenticated={this.setAuthenticated}/>
             <Route exact path="/login" name="Login Page" element={<Login />} setAuthenticated={this.setAuthenticated}/>
             <Route exact path="/register" name="Register Page" element={<Register />} />
             <Route exact path="/404" name="Page 404" element={<Page404 />} />

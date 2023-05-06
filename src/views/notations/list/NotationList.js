@@ -17,7 +17,7 @@ import CIcon from '@coreui/icons-react'
 import { cilPlus } from '@coreui/icons'
 import { Link } from 'react-router-dom'
 
-const SchoolList = () => {
+const NoteList = () => {
   const baseUrl = 'http://localhost:8081'
   useEffect(() => {
     const getList = async () => {
@@ -34,14 +34,14 @@ const SchoolList = () => {
     return data
   }
   const [list, setList] = useState([])
-  console.log(list)
+ 
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Liste d&apos;Etablissements</strong>
-            <Link to={'/schools/add'}>
+            <strong>Les Notes des eleves</strong>
+            <Link to={'/notes/add'}>
               <CButton color="primary" size="sm" style={{float: 'right'}} >
                 <CIcon icon={cilPlus} className='me-2' />
                 Ajouter
@@ -60,7 +60,7 @@ const SchoolList = () => {
                   <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
-              <Schools schools={list} />
+              <Schools notes={list} />
             </CTable>
           </CCardBody>
         </CCard>
@@ -69,4 +69,4 @@ const SchoolList = () => {
   )
 }
 
-export default SchoolList
+export default NoteList

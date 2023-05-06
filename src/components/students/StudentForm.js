@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
 import { CButton, CCol, CForm, CFormInput, CFormLabel, CRow, CFormFeedback, CFormSelect } from '@coreui/react'
+import ReactDatePicker from 'react-datepicker'
+
+import 'react-datepicker/dist/react-datepicker.css'
+
 
 const StudentForm = ({addStudent, schools}) => {
   
@@ -7,7 +11,9 @@ const StudentForm = ({addStudent, schools}) => {
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
   const [description, setDescription] = useState('')
+  const [tutor, setTutor] = useState('')
   const [birthday, setBirthday] = useState('')
+  const [birthplace, setBirthplace] = useState('')
   const [sex, setSex] = useState('')
   const [school, setSchool] = useState('')
 
@@ -19,7 +25,9 @@ const StudentForm = ({addStudent, schools}) => {
       event.preventDefault()
       event.stopPropagation()
     }else{
-      addStudent({firstname, lastname, birthday, sex, schoolId: school})
+      addStudent({firstname, lastname, birthday, sex,
+        schoolId: school, tutorPhone: tutor, birthplace
+    })
 
     }
     
@@ -50,15 +58,22 @@ const StudentForm = ({addStudent, schools}) => {
             Date de Naissance
         </CFormLabel>
         <CCol sm={10}>
-            <CFormInput type="text" value={description} id="inputPassword3" onChange={(e) => setDescription(e.target.value)} />
+            <ReactDatePicker selected={birthday} 
+                showIcon
+                placeholderText='DD/MM/YYYY'
+                dateFormat='dd/MM/yyyy'
+                onChange={(date) => setBirthday(date)} 
+                calendarClassName='form-select'
+            />
         </CCol>
         </CRow>
+        
         <CRow className="mb-3">
         <CFormLabel htmlFor="ldn" className="col-sm-2 col-form-label">
             Lieu de Naissance
         </CFormLabel>
         <CCol sm={10}>
-            <CFormInput type="text" value={description} id="ldn" onChange={(e) => setDescription(e.target.value)} />
+            <CFormInput type="text" value={birthplace} id="ldn" onChange={(e) => setBirthplace(e.target.value)} />
         </CCol>
         </CRow>
         <CRow className="mb-3">
@@ -66,7 +81,7 @@ const StudentForm = ({addStudent, schools}) => {
             Téléphone du Tuteur
         </CFormLabel>
         <CCol sm={10}>
-            <CFormInput type="text" value={description} id="ntuteur" onChange={(e) => setDescription(e.target.value)} />
+            <CFormInput type="text" value={tutor} id="ntuteur" onChange={(e) => setTutor(e.target.value)} />
         </CCol>
         </CRow>
         <CRow className="mb-3">

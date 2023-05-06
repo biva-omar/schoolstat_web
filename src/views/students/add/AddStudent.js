@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SubCenterForm from 'src/components/sub-centers /SubCenterForm';
 import StudentForm from 'src/components/students/StudentForm';
+import { headers } from 'src/AppConfig';
 
 
 const AddStudent = () => {
@@ -14,12 +15,8 @@ const AddStudent = () => {
   const [schools, setSchools] = useState([])
 
   const addStudent = async (student) => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
-    
-    axios.post(baseUrl+'/students/', student, {headers})
+   
+    axios.post(baseUrl+'/students/', student, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             toast.success('Nouveau sous eleve enregistré !', {autoClose:3000})
@@ -34,12 +31,8 @@ const AddStudent = () => {
   }
 
   const loadSchools = () => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
     
-    axios.get(baseUrl+'/schools/')
+    axios.get(baseUrl+'/schools/', {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setSchools(response.data)

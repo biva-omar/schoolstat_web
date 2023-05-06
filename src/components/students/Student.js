@@ -3,6 +3,7 @@ import React from 'react'
 import { CTableDataCell, CTableHeaderCell, CTableRow } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilPencil, cilPlus, cilTrash } from '@coreui/icons'
+import moment from 'moment'
 
 const Student = ({student, inc}) => {
   return (
@@ -10,9 +11,9 @@ const Student = ({student, inc}) => {
       <CTableHeaderCell scope="row">{inc}</CTableHeaderCell>
       <CTableDataCell>{student.firstname}</CTableDataCell>
       <CTableDataCell>{student.lastname}</CTableDataCell>
-      <CTableDataCell>{student.birthday}</CTableDataCell>
+      <CTableDataCell>{ moment(student.birthday).format('MMMM Do YYYY')}</CTableDataCell>
       <CTableDataCell>{student.sex}</CTableDataCell>
-      <CTableDataCell>{student.schoolId}</CTableDataCell>
+      <CTableDataCell>{student.schoolLabel}</CTableDataCell>
       <CTableDataCell>
         <CIcon icon={cilPlus} className='me-2' title='voir plus' style={{color: '#0000ff'}} />
         <CIcon icon={cilPencil} className='me-2' title='editer' style={{color: '#00eeff'}} />

@@ -22,14 +22,28 @@ export async function login(credentients){
             response => {
                 addItem('token', response.data.jwttoken)
                 addItem('username', response.data.username)
+                addItem('sessionId', response.data.sessionId)
                 return true;
             }
         )
 }
 
-export function logout(){
-    removeItem('token')
-} 
+
+export async function logout(credentients){
+    return axios
+        .post('http://localhost:8081/auth/logout',null , {headers: credentients})
+        //.then(response => response.data.token)
+        .then(
+            response => {
+                removeItem('token')
+                removeItem('username')
+                removeItem('sessionId')
+                localStorage.clear()
+                return true;
+            }
+        )
+}
+
 
 
 function tokenIsValid(token){

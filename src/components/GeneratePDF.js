@@ -1,14 +1,27 @@
 import React, { useRef, useState } from 'react';
 import jsPDF from 'jspdf';
-import App from 'src/App';
-import { Icons } from 'react-toastify';
 import States1 from './states/States1';
 import { cilPrint, cilSave } from '@coreui/icons';
 import { CButton } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
-import State1List from 'src/views/states/state1/State1List';
+import States2 from './states/States2';
+import States3 from './states/States3';
+import States4 from './states/States4';
 
-const GeneratePDF = ({object}) => {
+const renderView = ({state, object}) => {
+	switch(state) {
+		case '1':
+		return <States1 states={object} />
+		case '2':
+		return <States2 states={object} />
+		case '3':
+		return <States3 states={object} />
+		default:
+		return <States4 states={object} />
+	}
+}
+
+const GeneratePDF = ({object, state}) => {
 	const reportTemplateRef = useRef(null);
 	const [display, setDisplay] = useState('none')
 
@@ -28,12 +41,14 @@ const GeneratePDF = ({object}) => {
 		});
 	};
 
+	
+
 	return (
 		<>
 			
 			<div style={{display: 'none'}}>
-				<div ref={reportTemplateRef} style={{display: display}}>
-					<States1 states={object} />
+				<div ref={reportTemplateRef} style={{display: display, padding: '25px', fontSize: '9px'}}>
+				{renderView({state, object}) }
 				</div>
 			</div>
             <CButton color="info" size="sm" style={{float: 'right'}} onClick={handleGeneratePdf} >

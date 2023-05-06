@@ -28,9 +28,15 @@ const SubCenterList = () => {
 
     getList()
   }, [])
+
+  const headers = { 
+    'Authorization': 'Bearer '+localStorage.getItem('token'),
+    'Content-type': 'application/json',
+  };
+
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/exam-sub-centers/')
+    const res = await fetch(baseUrl + '/exam-sub-centers/', {headers})
     const data = await res.json()
     return data
   }
