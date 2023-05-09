@@ -35,14 +35,7 @@ const SubCenterForm = ({addSubCenter, centers}) => {
             <CFormFeedback invalid>Le libelle ne peut pas etre vide.</CFormFeedback>
         </CCol>
         </CRow>
-        <CRow className="mb-3">
-        <CFormLabel htmlFor="inputPassword3" className="col-sm-2 col-form-label">
-            Description
-        </CFormLabel>
-        <CCol sm={10}>
-            <CFormInput type="text" value={description} id="inputPassword3" onChange={(e) => setDescription(e.target.value)} />
-        </CCol>
-        </CRow>
+        
         <CRow className="mb-3">
                 <CFormLabel htmlFor="inputPassword3" className="col-sm-2 col-form-label">
                   Centre d&apos;Examen

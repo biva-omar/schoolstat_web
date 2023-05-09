@@ -12,10 +12,6 @@ import {
 import {
   cilBell,
   cilCreditCard,
-  cilCommentSquare,
-  cilEnvelopeOpen,
-  cilFile,
-  cilLockLocked,
   cilSettings,
   cilTask,
   cilUser,
@@ -23,9 +19,7 @@ import {
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
-import avatar8 from './../../assets/images/avatars/8.jpg'
-import { baseUrl, headers } from 'src/AppConfig'
-import axios from 'axios'
+import avatar8 from './../../assets/images/avatars/4.jpg'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../services/AuthApi'
 
@@ -41,7 +35,6 @@ const AppHeaderDropdown = () => {
       "Authorization":"Basic " + hash,
       "Content-Type":"application/json"
     }
-    alert("logout")
     try{
       logout(anonyHeaders)
       navigate("/", { replace: true })
@@ -91,7 +84,7 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
         
         <CDropdownDivider />
-        <CDropdownItem onClick={handleLogout}>
+        <CDropdownItem onClick={handleLogout} href='#'>
           <CIcon icon={cilAccountLogout} className="me-2" />
           Log out
         </CDropdownItem>

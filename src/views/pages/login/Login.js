@@ -37,6 +37,7 @@ const Login = ({isAuthenticated}) => {
           //navagation('/dashboard', { replace: true })
           window.location.href = "#/dashboard";
         }catch(response){
+          toast.error("Nom d'utilisateur ou mot de passe incorrect")
            console.log(response)
         }
     }

@@ -11,13 +11,13 @@ import States4 from './states/States4';
 const renderView = ({state, object}) => {
 	switch(state) {
 		case '1':
-		return <States1 states={object} />
+		return <States1 states={object} title={true} />
 		case '2':
-		return <States2 states={object} />
+		return <States2 states={object} title={true} />
 		case '3':
-		return <States3 states={object} />
+		return <States3 states={object} title={true} />
 		default:
-		return <States4 states={object} />
+		return <States4 states={object} title={true} />
 	}
 }
 

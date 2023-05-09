@@ -34,7 +34,7 @@ const MatiereForm = ({addMatiere}) => {
         </CRow>
         <CRow className="mb-3">
         <CFormLabel htmlFor="inputPassword3" className="col-sm-2 col-form-label">
-            Description
+            Note Maximale
         </CFormLabel>
         <CCol sm={10}>
             <CFormInput type="text" value={description} id="inputPassword3" onChange={(e) => setDescription(e.target.value)} />
