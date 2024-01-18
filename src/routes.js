@@ -20,6 +20,12 @@ import State4List from './views/states/state4/State4List'
 import MatiereList from './views/matieres/list/MatiereList'
 import AddMatiere from './views/matieres/add/AddMatiere'
 import SearchMatiere from './views/matieres/search/SearchMatiere'
+import AddNotation from './views/notations/add/AddNotation'
+import NotationList from './views/notations/list/NotationList'
+import StudentDetailsWrapper from './views/students/details/StudentDetailsWrapper'
+import Syntheses from './views/states/syntheses/Syntheses'
+import StudentsImport from './views/imports/students/student'
+import NotesImport from './views/imports/notes/note.js'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -108,6 +114,8 @@ const routes = [
   { path: '/students/list', name: 'Liste', element: StudentList },
   { path: '/students/add', name: 'Ajouter', element: AddStudent },
   { path: '/students/search', name: 'Rechercher', element: SearchStudent },
+  { path: '/students/:id', name: 'Rechercher', element: StudentDetailsWrapper },
+  { path: '/syntheses', name: 'Syntheses', element: Syntheses },
   { path: '/state1', name: 'Etat1', element: State1List },
   { path: '/state2', name: 'Etat2', element: State2List, exact: true },
   { path: '/state3', name: 'Etat3', element: State3List },
@@ -115,6 +123,11 @@ const routes = [
   { path: '/matieres', name: 'Matieres', element: MatiereList, exact: true },
   { path: '/matieres/list', name: 'Liste', element: MatiereList },
   { path: '/matieres/add', name: 'Ajouter', element: AddMatiere },
+
+  { path: '/notations', name: 'Notations', element: NotationList, exact: true },
+  { path: '/notations/list', name: 'Liste', element: NotationList },
+  { path: '/notations/add', name: 'Ajouter', element: AddNotation },
+
   { path: '/matieres/search', name: 'Rechercher', element: SearchMatiere },
   { path: '/forms/range', name: 'Range', element: Range },
   { path: '/forms/input-group', name: 'Input Group', element: InputGroup },
@@ -131,6 +144,9 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+
+  { path: '/students/import', name: 'Import', element: StudentsImport },
+  { path: '/notes/import', name: 'Import', element: NotesImport },
 ]
 
 export default routes

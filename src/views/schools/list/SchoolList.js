@@ -5,6 +5,8 @@ import {
   CCardBody,
   CCardHeader,
   CCol,
+  CPagination,
+  CPaginationItem,
   CRow,
   CTable,
   CTableHead,
@@ -16,10 +18,10 @@ import Schools from 'src/components/schools/Schools'
 import CIcon from '@coreui/icons-react'
 import { cilPlus } from '@coreui/icons'
 import { Link } from 'react-router-dom'
-import { headers } from 'src/AppConfig'
+import { baseUrl, headers } from 'src/AppConfig'
 
 const SchoolList = () => {
-  const baseUrl = 'http://localhost:8081'
+  
   useEffect(() => {
     const getList = async () => {
       const listFromServer = await fetchList()
@@ -30,7 +32,7 @@ const SchoolList = () => {
   }, [])
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/schools/', {headers: headers})
+    const res = await fetch(baseUrl + '/schools', {headers: headers})
     const data = await res.json()
     return data
   }
@@ -63,6 +65,48 @@ const SchoolList = () => {
               </CTableHead>
               <Schools schools={list} />
             </CTable>
+            <CPagination aria-label="Page navigation example">
+              <CPaginationItem aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </CPaginationItem>
+              
+              <CPaginationItem >1</CPaginationItem>
+              <CPaginationItem>2</CPaginationItem>
+              <CPaginationItem>3</CPaginationItem>
+
+              <CPaginationItem >1</CPaginationItem>
+              <CPaginationItem>2</CPaginationItem>
+              <CPaginationItem>3</CPaginationItem>
+
+              <CPaginationItem >1</CPaginationItem>
+              <CPaginationItem>2</CPaginationItem>
+              <CPaginationItem>3</CPaginationItem>
+
+              <CPaginationItem >1</CPaginationItem>
+              <CPaginationItem>2</CPaginationItem>
+              <CPaginationItem>3</CPaginationItem>
+
+              <CPaginationItem >1</CPaginationItem>
+              <CPaginationItem>2</CPaginationItem>
+              <CPaginationItem>3</CPaginationItem>
+
+              <CPaginationItem >1</CPaginationItem>
+              <CPaginationItem>2</CPaginationItem>
+              <CPaginationItem>3</CPaginationItem>
+
+              <CPaginationItem >1</CPaginationItem>
+              <CPaginationItem>2</CPaginationItem>
+              <CPaginationItem>3</CPaginationItem>
+
+              <CPaginationItem >1</CPaginationItem>
+              <CPaginationItem>2</CPaginationItem>
+              <CPaginationItem>3</CPaginationItem>
+
+              
+              <CPaginationItem aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </CPaginationItem>
+            </CPagination>
           </CCardBody>
         </CCard>
       </CCol>

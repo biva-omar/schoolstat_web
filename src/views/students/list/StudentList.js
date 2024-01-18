@@ -17,10 +17,10 @@ import Students from 'src/components/students/Students'
 import CIcon from '@coreui/icons-react'
 import { cilPlus } from '@coreui/icons'
 import { Link } from 'react-router-dom'
-import { headers } from 'src/AppConfig'
+import { baseUrl, headers } from 'src/AppConfig'
 
 const StudentList = () => {
-  const baseUrl = 'http://localhost:8081'
+  
   useEffect(() => {
     const getList = async () => {
       const listFromServer = await fetchList()
@@ -31,7 +31,7 @@ const StudentList = () => {
   }, [])
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/students/', {headers: headers})
+    const res = await fetch(baseUrl + '/students', {headers: headers})
     const data = await res.json()
     return data
   }
@@ -47,6 +47,12 @@ const StudentList = () => {
               <CButton color="primary" size="sm" style={{float: 'right'}} >
                 <CIcon icon={cilPlus} className='me-2' />
                 Ajouter
+              </CButton>
+            </Link>
+            <Link to={'/students/import'}>
+              <CButton color="secondary" size="sm me-2" style={{float: 'right'}} >
+                <CIcon icon={cilPlus} className='me-2' />
+                Importer
               </CButton>
             </Link>
           </CCardHeader>

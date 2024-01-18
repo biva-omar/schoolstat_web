@@ -5,10 +5,10 @@ import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 import { cilArrowTop, cilBuilding, cilOptions, cilPeople, cilSchool, } from '@coreui/icons'
 import axios from 'axios'
-import { headers } from 'src/AppConfig'
+import { baseUrl, headers } from 'src/AppConfig'
 
 const WidgetsDropdown = () => {
-  const baseUrl = 'http://localhost:8081'
+  
   const countTrainingOrderUrl = baseUrl + '/training-orders/count'
   const countSubCenterUrl = baseUrl + '/exam-sub-centers/count'
   const countSchoolUrl = baseUrl + '/schools/count'

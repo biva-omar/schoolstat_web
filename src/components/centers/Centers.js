@@ -3,10 +3,11 @@ import { CTableBody } from '@coreui/react'
 import Center from './Center'
 
 const Centers = ({ centers }) => {
+  
   return (
     <CTableBody>
       {centers.map((center, index) => (
-        <Center center={center} key={"1"}  inc={index+1} />
+        <Center center={center} key={index}  inc={index+1} />
       ))}
     </CTableBody>
   )

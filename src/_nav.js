@@ -167,40 +167,30 @@ const _nav = [
       },
     ],
   },
-  /*{
-    component: CNavItem,
-    name: 'Widgets',
-    to: '/widgets',
-    icon: <CIcon icon={cilCalculator} customClassName="nav-icon" />,
-  },*/
   {
     component: CNavGroup,
-    name: 'Etats',
-    to: '/state1',
-    icon: <CIcon icon={cilSitemap} customClassName="nav-icon" />,
+    name: 'Notations',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Etat 1',
-        to: '/state1',
+        name: 'Liste des notes',
+        to: '/notations/list',
       },
       {
         component: CNavItem,
-        name: 'Etat 2',
-        to: '/state2',
-      },
-      {
-        component: CNavItem,
-        name: 'Etat 3',
-        to: '/state3',
-      },
-      {
-        component: CNavItem,
-        name: 'Etat 4',
-        to: '/state4',
+        name: 'Ajouter une note',
+        to: '/notations/add',
       },
     ],
   },
+  {
+    component: CNavItem,
+    name: 'Statistiques et Syntheses',
+    to: '/syntheses',
+    icon: <CIcon icon={cilCalculator} customClassName="nav-icon" />,
+  },
+  
 ]
 
 export default _nav

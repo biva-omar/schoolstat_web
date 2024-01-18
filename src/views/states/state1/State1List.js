@@ -8,10 +8,10 @@ import {
 } from '@coreui/react'
 import States1 from 'src/components/states/States1'
 import GeneratePDF from 'src/components/GeneratePDF'
-import { headers } from 'src/AppConfig'
+import { baseUrl, headers } from 'src/AppConfig'
 
 const State1List = () => {
-  const baseUrl = 'http://localhost:8081'
+  
   useEffect(() => {
     const getList = async () => {
       const listFromServer = await fetchList()
@@ -33,7 +33,7 @@ const State1List = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Etat1</strong>
+            <strong>SYNTHESE DES RESULTATS DU CEP  SESSION 2023</strong>
             <GeneratePDF object={list} />
           </CCardHeader>
           <CCardBody>

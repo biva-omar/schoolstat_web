@@ -3,10 +3,10 @@ import { CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CFormFeedback, CFo
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import Search from 'src/views/common/Search';
+import { baseUrl } from 'src/AppConfig';
 
 const SearchCenter = () => {
 
-  const baseUrl ='http://localhost:8081';
   const url = baseUrl + '/exam-centers/'
   const title = 'Rechercher un centre'
 

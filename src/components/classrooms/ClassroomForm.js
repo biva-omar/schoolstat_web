@@ -1,23 +1,26 @@
 import React, { useState } from 'react'
-import { CButton, CCol, CForm, CFormInput, CFormLabel, CRow, CFormFeedback, CFormSelect } from '@coreui/react'
+import { CButton, CCol, CForm, CFormInput, CFormLabel, CRow, CFormFeedback, CFormSelect, CSpinner } from '@coreui/react'
+import { cilSave } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 
 const ClassroomForm = ({addClassroom, subCenters}) => {
   
   const [validated, setValidated] = useState(false)
   const [label, setLabel] = useState('')
   const [subCenter, setSubCenter] = useState('')
-  const [description, setDescription] = useState('')
+  const [showSpinButton, setShowSpinButton] = useState(false)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-        const form = event.currentTarget
-        setValidated(true)
+    setShowSpinButton(true)
+    const form = event.currentTarget
+    setValidated(true)
     if (form.checkValidity() === false) {
       event.preventDefault()
       event.stopPropagation()
+      setShowSpinButton(false)
     }else{
-      addClassroom({label, examSubCenterId: subCenter})
-
+      setShowSpinButton( await addClassroom({label, examSubCenterId: subCenter}))
     }
     
   }
@@ -51,7 +54,13 @@ const ClassroomForm = ({addClassroom, subCenters}) => {
                   </CFormSelect>
                 </CCol>
               </CRow>
-        <CButton type="submit">Valider</CButton>
+              <CButton type="submit" disabled={showSpinButton} >
+                {
+                  showSpinButton? (<CSpinner component="span" size="sm" aria-hidden="true" /> ) :
+                  (<CIcon icon={cilSave} /> )
+                }
+                Enregistrer
+              </CButton>
     </CForm>
   )
 }

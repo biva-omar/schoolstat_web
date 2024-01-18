@@ -4,12 +4,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SubCenterForm from 'src/components/sub-centers /SubCenterForm';
-import { headers } from 'src/AppConfig';
+import { baseUrl, headers } from 'src/AppConfig';
 
 
 const AddSubCenter = () => {
 
-  const baseUrl ='http://localhost:8081';
   const navigate = useNavigate()
   const [centers, setCenters] = useState([])
 

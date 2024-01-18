@@ -16,10 +16,10 @@ import CIcon from '@coreui/icons-react'
 import { cilPlus } from '@coreui/icons'
 import { Link } from 'react-router-dom'
 import Matieres from 'src/components/matieres/Matieres'
-import { headers } from 'src/AppConfig'
+import { baseUrl, headers } from 'src/AppConfig'
 
 const MatiereList = () => {
-  const baseUrl = 'http://localhost:8081'
+  
   useEffect(() => {
     const getList = async () => {
       const listFromServer = await fetchList()

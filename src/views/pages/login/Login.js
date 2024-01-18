@@ -1,18 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, redirect, useNavigate } from 'react-router-dom'
-import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CFormFeedback, CFormInput, CInputGroup, CInputGroupText, CRow, } from '@coreui/react'
+import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CFormFeedback, CFormInput, CFormSelect, CInputGroup, CInputGroupText, CRow, } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+import { cilHistory, cilLockLocked, cilUser } from '@coreui/icons'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { login } from 'src/components/services/AuthApi'
 import Auth from 'src/context/Auth'
+import { baseUrl } from 'src/AppConfig'
 
 const Login = ({isAuthenticated}) => {
 
   const [validated, setValidated] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [examSession, setExamSession] = useState('')
+  const [examSessions, setExamSessions] = useState([])
 
   const loginUrl =  "http://localhost:8081/auth/sign-in"
   const navagation = useNavigate()     
@@ -20,8 +23,8 @@ const Login = ({isAuthenticated}) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-        const form = event.currentTarget
-        setValidated(true)
+    const form = event.currentTarget
+    setValidated(true)
     if (form.checkValidity() === false) {
       event.preventDefault()
       event.stopPropagation()
@@ -29,7 +32,9 @@ const Login = ({isAuthenticated}) => {
         const hash = btoa(username  + ":" + password);
         const anonyHeaders = {
           "Authorization":"Basic " + hash,
-          "Content-Type":"application/json"
+          "Content-Type":"application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS"
         }
         try{
           const response = await login(anonyHeaders)
@@ -48,8 +53,24 @@ const Login = ({isAuthenticated}) => {
     if(isAuthenticated){
       navagation('/dasboard')
       }
+    loadExamSessions()
     }, [navagation, isAuthenticated])
 
+
+    const loadExamSessions = () => {
+    
+      axios.get(baseUrl+'/exam-sessions/')
+          .then(response => {
+            if(response.status == 200 ){
+              setExamSessions(response.data)
+              
+            }else{
+            }
+          })
+          .catch(error => {
+              console.error('There was an error!', error);
+          });
+    }
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
@@ -87,6 +108,28 @@ const Login = ({isAuthenticated}) => {
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <CFormFeedback invalid>Password ne peut pas etre vide.</CFormFeedback>
+                    </CInputGroup>
+
+                    <CInputGroup className="mb-4">
+                      <CInputGroupText>
+                        <CIcon icon={cilHistory} />
+                      </CInputGroupText>
+                      <CFormSelect id="inlineFormSelectPref"  
+                        autoComplete="username" 
+                        value={examSession}  
+                        onChange={(e) => setExamSession(e.target.value)}
+                        required
+                        >
+                        <option value={''}>Choose Exam Session...</option>
+                        {
+                      examSessions.map(
+                        (session, index) => (
+                          <option key={index} value={session.id}>{session?.examSession}</option>
+                        )
+                      )
+                    }
+                      </CFormSelect>
+                      <CFormFeedback invalid>Exam session ne peut pas etre vide.</CFormFeedback>
                     </CInputGroup>
                     
                     <CRow>

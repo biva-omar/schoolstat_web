@@ -5,12 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SubCenterForm from 'src/components/sub-centers /SubCenterForm';
 import StudentForm from 'src/components/students/StudentForm';
-import { headers } from 'src/AppConfig';
+import { baseUrl, headers } from 'src/AppConfig';
 
 
 const AddStudent = () => {
 
-  const baseUrl ='http://localhost:8081';
   const navigate = useNavigate()
   const [schools, setSchools] = useState([])
 
@@ -19,7 +18,7 @@ const AddStudent = () => {
     axios.post(baseUrl+'/students/', student, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
-            toast.success('Nouveau sous eleve enregistré !', {autoClose:3000})
+            toast.success('Nouveau eleve enregistré !', {autoClose:3000})
             navigate("/students/", { replace: true })
           }else{
             toast.error('Echec enregistrement !', {autoClose:3000})
@@ -32,7 +31,7 @@ const AddStudent = () => {
 
   const loadSchools = () => {
     
-    axios.get(baseUrl+'/schools/', {headers: headers})
+    axios.get(baseUrl+'/schools', {headers: headers})
         .then(response => {
           if(response.status == 200 ){
             setSchools(response.data)

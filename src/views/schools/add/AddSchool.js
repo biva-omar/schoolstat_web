@@ -4,12 +4,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SchoolForm from 'src/components/schools/SchoolForm';
-import { headers } from 'src/AppConfig';
+import { baseUrl, headers } from 'src/AppConfig';
 
 
 const AddSchool = () => {
 
-  const baseUrl ='http://localhost:8081';
   const navigate = useNavigate()
   const [subCenters, setSubCenters] = useState([])
   const [orders, setOrders] = useState([])

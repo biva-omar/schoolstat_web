@@ -14,10 +14,10 @@ import { cilPlus } from '@coreui/icons'
 import States1 from 'src/components/states/States1'
 import States2 from 'src/components/states/States2'
 import GeneratePDF from 'src/components/GeneratePDF'
-import { headers } from 'src/AppConfig'
+import { baseUrl, headers } from 'src/AppConfig'
 
 const State2List = () => {
-  const baseUrl = 'http://localhost:8081'
+  
   useEffect(() => {
     const getList = async () => {
       const listFromServer = await fetchList()
@@ -39,7 +39,7 @@ const State2List = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Etat2</strong>
+            <strong>SATATISTIQUES DES INTERVENANTS AU CEP SESSION 2023</strong>
             <GeneratePDF object={list} state={'2'} />
           </CCardHeader>
           <CCardBody>

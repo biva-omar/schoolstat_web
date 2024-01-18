@@ -9,7 +9,7 @@ const SearchStudent = () => {
 
   return (
     <>
-      <SearchStudent url={url} title={title} />
+      <Search url={url} title={title} />
     </>
   )
 }

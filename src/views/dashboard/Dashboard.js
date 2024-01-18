@@ -48,11 +48,11 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import axios from 'axios'
-import { headers } from 'src/AppConfig'
+import { baseUrl, headers } from 'src/AppConfig'
 
 
 const Dashboard = () => {
-  const baseUrl = 'http://localhost:8081'
+ 
   const countStudentBySubCenterUrl = baseUrl + '/students/state1/'
   const [nStudentBySubCenter, setNStudentBySubCenter] = useState([])
 

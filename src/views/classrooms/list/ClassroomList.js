@@ -17,10 +17,10 @@ import Classrooms from 'src/components/classrooms/Classrooms'
 import CIcon from '@coreui/icons-react'
 import { cilPlus } from '@coreui/icons'
 import { Link } from 'react-router-dom'
-import { headers } from 'src/AppConfig'
+import { baseUrl, headers } from 'src/AppConfig'
 
 const ClassroomList = () => {
-  const baseUrl = 'http://localhost:8081'
+
   useEffect(() => {
     const getList = async () => {
       const listFromServer = await fetchList()

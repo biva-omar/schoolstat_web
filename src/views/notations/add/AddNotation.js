@@ -3,27 +3,24 @@ import { CCard, CCardBody, CCardHeader, CCol, CRow, } from '@coreui/react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import SchoolForm from 'src/components/schools/SchoolForm';
+import NotationForm from 'src/components/notations/NotationForm';
+import { baseUrl, headers } from 'src/AppConfig';
 
 
 const AddNotation = () => {
 
-  const baseUrl ='http://localhost:8081';
+ 
   const navigate = useNavigate()
-  const [subCenters, setSubCenters] = useState([])
-  const [orders, setOrders] = useState([])
+  const [students, setStudents] = useState([])
+  const [matieres, setMatieres] = useState([])
 
-  const addNote = async (note) => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
+  const addNotation = async (note) => {
     
-    axios.post(baseUrl+'/notes/', note, {headers})
+    axios.post(baseUrl+'/notes/', note, {headers: headers})
         .then(response => {
           if(response.status == 200 ){
-            toast.success('Nouvel etablissement enregistré !', {autoClose:3000})
-            navigate("/notes/", { replace: true })
+            toast.success('Nouvelle note enregistré !', {autoClose:3000})
+            navigate("/notations/", { replace: true })
           }else{
             toast.error('Echec enregistrement !', {autoClose:3000})
           }
@@ -33,16 +30,12 @@ const AddNotation = () => {
         });
   }
 
-  const loadSubCenter = () => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
+  const loadMatiere= () => {
     
-    axios.get(baseUrl+'/exam-sub-centers/')
+    axios.get(baseUrl+'/matieres/', {headers: headers})
         .then(response => {
           if(response.status == 200 ){
-            setSubCenters(response.data)
+            setMatieres(response.data)
             
           }else{
             return []
@@ -55,16 +48,12 @@ const AddNotation = () => {
   }
 
 
-  const loadOrder = () => {
-    const headers = { 
-      /*'Authorization': 'Bearer my-token',*/
-      'Content-type': 'application/json',
-    };
+  const loadStudent = () => {
     
-    axios.get(baseUrl+'/teaching-order/')
+    axios.get(baseUrl+'/students/', {headers: headers})
         .then(response => {
           if(response.status == 200 ){
-            setOrders(response.data)
+            setStudents(response.data)
             
           }else{
             return []
@@ -78,8 +67,8 @@ const AddNotation = () => {
 
 
   useEffect(() => {   
-    loadSubCenter();
-    loadOrder()
+    loadStudent();
+    loadMatiere()
   }, []);
 
 
@@ -91,7 +80,7 @@ const AddNotation = () => {
             <strong>Attribuer une note</strong>
           </CCardHeader>
           <CCardBody>
-            <SchoolForm addNote={addNote} subCenters={subCenters} ordres={orders} />
+            <NotationForm addNotation={addNotation} matieres={matieres} students={students} />
           </CCardBody>
         </CCard>
       </CCol>

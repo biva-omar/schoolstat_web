@@ -16,9 +16,11 @@ import Schools from 'src/components/schools/Schools'
 import CIcon from '@coreui/icons-react'
 import { cilPlus } from '@coreui/icons'
 import { Link } from 'react-router-dom'
+import Notations from 'src/components/notations/Notations'
+import { baseUrl, headers } from 'src/AppConfig'
 
-const NoteList = () => {
-  const baseUrl = 'http://localhost:8081'
+const NotationList = () => {
+
   useEffect(() => {
     const getList = async () => {
       const listFromServer = await fetchList()
@@ -29,7 +31,7 @@ const NoteList = () => {
   }, [])
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/schools/')
+    const res = await fetch(baseUrl + '/notes', {headers: headers})
     const data = await res.json()
     return data
   }
@@ -41,27 +43,21 @@ const NoteList = () => {
         <CCard className="mb-4">
           <CCardHeader>
             <strong>Les Notes des eleves</strong>
-            <Link to={'/notes/add'}>
+            <Link to={'/notations/add'}>
               <CButton color="primary" size="sm" style={{float: 'right'}} >
                 <CIcon icon={cilPlus} className='me-2' />
                 Ajouter
               </CButton>
             </Link>
+            <Link to={'/notes/import'}>
+              <CButton color="secondary" size="sm me-2" style={{float: 'right'}} >
+                <CIcon icon={cilPlus} className='me-2' />
+                Importer
+              </CButton>
+            </Link>
           </CCardHeader>
           <CCardBody>
-            <CTable>
-              <CTableHead>
-                <CTableRow>
-                  <CTableHeaderCell scope="col">#</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Etablissements</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Sous Centres</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Centres</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Odre enseignement</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
-                </CTableRow>
-              </CTableHead>
-              <Schools notes={list} />
-            </CTable>
+            <Notations notations={list} />
           </CCardBody>
         </CCard>
       </CCol>
@@ -69,4 +65,4 @@ const NoteList = () => {
   )
 }
 
-export default NoteList
+export default NotationList

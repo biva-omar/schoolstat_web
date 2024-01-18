@@ -5,11 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import MatiereForm from 'src/components/matieres/MatiereForm';
-import { headers } from 'src/AppConfig';
+import { baseUrl, headers } from 'src/AppConfig';
 
 const AddMatiere = () => {
 
-  const baseUrl ='http://localhost:8081';
   const navigate = useNavigate()
  
   const addMatiere = async (matiere) => {

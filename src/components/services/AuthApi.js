@@ -1,6 +1,7 @@
 import axios from "axios"
 import jwtDecode from 'jwt-decode'
 import {getItem, addItem, removeItem } from './LocalStorage'
+import { baseUrl } from "src/AppConfig"
 
 export  function hasAuthenticated(){
     const token = getItem('token')
@@ -16,7 +17,7 @@ export  function hasAuthenticated(){
 
 export async function login(credentients){
     return axios
-        .post('http://localhost:8081/auth/sign-in',null , {headers: credentients})
+        .post(baseUrl+'/auth/sign-in',null , {headers: credentients})
         //.then(response => response.data.token)
         .then(
             response => {
@@ -31,7 +32,7 @@ export async function login(credentients){
 
 export async function logout(credentients){
     return axios
-        .post('http://localhost:8081/auth/logout',null , {headers: credentients})
+        .post(baseUrl+'/auth/logout',null , {headers: credentients})
         //.then(response => response.data.token)
         .then(
             response => {

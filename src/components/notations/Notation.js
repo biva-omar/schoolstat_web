@@ -1,37 +1,37 @@
 import React, { useState } from 'react'
 
-import { CButton, CFormInput, CFormSelect, CTableDataCell, CTableHeaderCell, CTableRow } from '@coreui/react'
+import { CButton, CFormInput, CTableDataCell, CTableHeaderCell, CTableRow } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilPencil, cilPlus, cilTrash } from '@coreui/icons'
 import { useNavigate } from 'react-router-dom'
-import { baseUrl, headers } from 'src/AppConfig'
 import axios from 'axios'
-import { confirmAlert } from 'react-confirm-alert'
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import { toast } from 'react-toastify'
+import { baseUrl, headers } from 'src/AppConfig'
+import { confirmAlert } from 'react-confirm-alert'
 
-const SubCenter = ({subCenter, inc}) => {
+const Notation = ({notation, inc}) => {
 
   const navigate = useNavigate()
 
-  const [persitedData, setPersistedData] = useState(subCenter)
+  const [persitedData, setPersistedData] = useState(notation)
 
   const [showUpdate, setShowUpdate] = useState(false)
-  const [newLabel, setNewLabel] = useState(subCenter.label)
-  const [newCenter, setNewCenter] = useState(subCenter.examCenter)
-  const [centers, setCenters] = useState([])
+  const [note, setNote] = useState(notation.note)
+  const [appreciation, setAppreciation] = useState(notation.appreciation)
+  const [matiere, setMatiere] = useState(notation.matiere)
+  const [matieres, setMatieres] = useState([])
 
   const deleteItem = () => {
     
-    axios.delete(baseUrl+"/exam-sub-centers/"+subCenter.id, {headers: headers})
+    axios.delete(baseUrl+"/notes/"+notation.id, {headers: headers})
     .then(
       response => {
           
         if(response.status == 200 ){
           
-          toast.success('Sous centre supprime avec succes!', {autoClose:3000})
+          toast.success('Note supprime avec succes!', {autoClose:3000})
           
-          navigate("/subcenters/list", { replace: true })
+          navigate("/notations/list", { replace: true })
           window.location.reload()
         }else{
           toast.error('Echec de suppression !', {autoClose:3000})
@@ -46,35 +46,35 @@ const SubCenter = ({subCenter, inc}) => {
 
 
   const updateItem = () => {
-    let postData = {label: newLabel, examCenterId: newCenter.id}
+    let postData = {note, appreciation, matiereId: matiere.id, studentId: notation.student.id}
     console.log(postData)
-    axios.put(baseUrl+"/exam-sub-centers/"+subCenter.id, postData, {headers: headers})
+    axios.put(baseUrl+"/notes/"+notation.id, postData, {headers: headers})
 
     .then(
       response => {
           
         if(response.status == 200 ){
-          toast.success('Centre modifie avec succes!', {autoClose:3000})
+          toast.success('Note modifie avec succes!', {autoClose:3000})
           setPersistedData(response.data)
-          setNewCenter(response.data.examCenter)
+          setNote(response.data.note)
+          setAppreciation(response.data.appreciation)
           setShowUpdate(false)
           //navigate("/centers/list", { replace: true })
           //window.location.reload()
         }else{
           toast.error('Echec modification !', {autoClose:3000})
-          setNewLabel(subCenter.label)
-          setNewCenter(subCenter.examCenter)
+          setNote(persitedData.note)
+          setAppreciation(persitedData.appreciation)
         }
       }
     )
     .catch(error => {
       toast.error('Echec de modification !', {autoClose:3000})
-      setNewLabel(persitedData.label)
-      setNewCenter(persitedData.examCenter)
+      setNote(persitedData.note)
+      setAppreciation(persitedData.appreciation)
       console.error('There was an error!', error);
   });
   }
-
 
 
   const handleDelete = () => {
@@ -95,24 +95,26 @@ const SubCenter = ({subCenter, inc}) => {
     });
   };
 
+
   const switchUpdate = () => {
     if(!showUpdate){
-      fetchCenters()
+      fetchMatieres()
     }else{
-      setNewLabel(persitedData.label)
-      setNewCenter(persitedData.examCenter)
+      setNote(persitedData.note)
+      setAppreciation(persitedData.appreciation)
     }
     setShowUpdate(!showUpdate)
   }
 
-  const fetchCenters = () => {
-    axios.get(baseUrl+"/exam-centers/", {headers: headers})
+
+  const fetchMatieres = () => {
+    axios.get(baseUrl+"/matieres/", {headers: headers})
 
     .then(
       response => {
           
         if(response.status == 200 ){
-          setCenters(response.data)
+          setMatieres(response.data)
           console.log(response.data)
         }else{
           //toast.error('Echec modification !', {autoClose:3000})
@@ -124,26 +126,18 @@ const SubCenter = ({subCenter, inc}) => {
   });
   }
 
+
   return (
     <CTableRow>
       <CTableHeaderCell scope="row">{inc}</CTableHeaderCell>
-      <CTableDataCell style={{width: '50%'}}>
-        {showUpdate? (<CFormInput size='sm'  value={newLabel} onChange={(e) => setNewLabel(e.target.value) } />): (<>{newLabel}</>)}
+      <CTableDataCell>{notation.student?.firstname + ' ' + notation.student?.lastname}</CTableDataCell>
+      <CTableDataCell>{notation.matiere?.label}</CTableDataCell>
+
+      <CTableDataCell style={{width: '20%'}}>
+        {showUpdate? (<CFormInput size='sm'  value={note} onChange={(e) => setNote(e.target.value) } />): (<>{note}</>)}
       </CTableDataCell>
-      <CTableDataCell style={{width: '30%'}}>
-        {showUpdate? 
-        (
-          <CFormSelect size='sm' style={{height: '33px'}} id="inlineFormSelectPref" value={newCenter.id} onChange={(e) => setNewCenter({id: e.target.value})} required>
-              <option  value={''}>Choose...</option>
-                    {
-                      centers.map(
-                        (center, index) => (
-                          <option key={index} value={center.id}>{center.label}</option>
-                        )
-                      )
-                    }
-          </CFormSelect>
-        ) : (<>{newCenter.label}</>)}
+      <CTableDataCell style={{width: '25%'}}>
+        {showUpdate? (<CFormInput size='sm'  value={appreciation} onChange={(e) => setAppreciation(e.target.value) } />): (<>{appreciation}</>)}
       </CTableDataCell>
       
       <CTableDataCell style={{width: '20%'}}>
@@ -159,5 +153,4 @@ const SubCenter = ({subCenter, inc}) => {
     </CTableRow>
   )
 }
-export default SubCenter
-
+export default Notation

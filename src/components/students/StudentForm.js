@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { CButton, CCol, CForm, CFormInput, CFormLabel, CRow, CFormFeedback, CFormSelect } from '@coreui/react'
+import { CButton, CCol, CForm, CFormInput, CFormLabel, CRow, CFormFeedback, CFormSelect, CSpinner } from '@coreui/react'
 import ReactDatePicker from 'react-datepicker'
 
 import 'react-datepicker/dist/react-datepicker.css'
+import CIcon from '@coreui/icons-react'
+import { cilSave } from '@coreui/icons'
 
 
 const StudentForm = ({addStudent, schools}) => {
@@ -10,24 +12,26 @@ const StudentForm = ({addStudent, schools}) => {
   const [validated, setValidated] = useState(false)
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
-  const [description, setDescription] = useState('')
   const [tutor, setTutor] = useState('')
   const [birthday, setBirthday] = useState('')
   const [birthplace, setBirthplace] = useState('')
   const [sex, setSex] = useState('')
   const [school, setSchool] = useState('')
+  const [showSpinButton, setShowSpinButton] = useState(false)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-        const form = event.currentTarget
-        setValidated(true)
+    setShowSpinButton(true)
+    const form = event.currentTarget
+    setValidated(true)
     if (form.checkValidity() === false) {
       event.preventDefault()
       event.stopPropagation()
+      setShowSpinButton(false)
     }else{
-      addStudent({firstname, lastname, birthday, sex,
-        schoolId: school, tutorPhone: tutor, birthplace
-    })
+      
+
+    setShowSpinButton( await addStudent({firstname, lastname, birthday, sex, schoolId: school, tutorPhone: tutor, birthplace }))
 
     }
     
@@ -104,7 +108,7 @@ const StudentForm = ({addStudent, schools}) => {
             <CFormSelect id="inlineFormSelectPref" value={school} onChange={(e) => setSchool(e.target.value)} required>
             <option value={''}>Choose...</option>
             {
-                schools.map(
+                schools?.map(
                     school => (
                         <option key={school.id} value={school.id}>{school.label}</option>
                     )
@@ -113,7 +117,13 @@ const StudentForm = ({addStudent, schools}) => {
             </CFormSelect>
         </CCol>
         </CRow>
-        <CButton type="submit">Valider</CButton>
+        <CButton type="submit" disabled={showSpinButton} >
+        {
+            showSpinButton? (<CSpinner component="span" size="sm" aria-hidden="true" /> ) :
+            (<CIcon icon={cilSave} /> )
+        }
+        Enregistrer
+        </CButton>
     </CForm>
   )
 }
