@@ -9,13 +9,14 @@ import { baseUrl, headers } from 'src/AppConfig'
 
 const WidgetsDropdown = () => {
   
-  const countTrainingOrderUrl = baseUrl + '/training-orders/count'
+  const countTrainingOrderUrl = baseUrl + '/teaching-order/count'
   const countSubCenterUrl = baseUrl + '/exam-sub-centers/count'
   const countSchoolUrl = baseUrl + '/schools/count'
   const countStudentUrl = baseUrl + '/students/count'
   const countStudentBySubCenterUrl = baseUrl + '/students/count-by-sub-centers'
   const countStudentBySchoolUrl = baseUrl + '/students/count-by-schools'
   const countSchoolBySubCenterUrl = baseUrl + '/schools/count-by-sub-centers'
+  const countSchoolByOrderUrl = baseUrl + '/schools/count-by-orders'
 
   const [nSubCenter, setNSubCenter] = useState(0)
   const [nSchool, setNSchool] = useState(0)
@@ -24,6 +25,7 @@ const WidgetsDropdown = () => {
   const [nStudentBySubCenter, setNStudentBySubCenter] = useState([])
   const [nStudentBySchool, setNStudentBySchool] = useState([])
   const [nSchoolBySubCenter, setNSchoolBySubCenter] = useState([])
+  const [nSchoolByOrder, setNSchoolByOrder] = useState([])
 
   const countTrainingOrder = async (url) => {
     axios.get(url, {headers: headers})
@@ -116,8 +118,21 @@ const WidgetsDropdown = () => {
         .catch(error => {
         });
   }
+
+  const countSchoolByOrder = async (url) => {
+    axios.get(url, {headers: headers})
+        .then(response => {
+          if(response.status == 200 ){
+            setNSchoolByOrder(response.data)
+          }else{
+          }
+        })
+        .catch(error => {
+        });
+  }
+
   useEffect(() => {
-    countTrainingOrder(countSchoolUrl)
+    countTrainingOrder(countTrainingOrderUrl)
     countSubCenter(countSubCenterUrl)
     countSchool(countSchoolUrl)
     countStudent(countStudentUrl)
@@ -125,6 +140,7 @@ const WidgetsDropdown = () => {
     countStudentBySubCenter(countStudentBySubCenterUrl)
     countStudentBySchool(countStudentBySchoolUrl)
     countSchoolBySubCenter(countSchoolBySubCenterUrl)
+    countSchoolByOrder(countSchoolByOrderUrl)
     
   }, [])
 
@@ -168,14 +184,14 @@ const WidgetsDropdown = () => {
               className="mt-3 mx-3"
               style={{ height: '70px' }}
               data={{
-                labels: nStudentBySubCenter.map(e => e.label),
+                labels: nSchoolByOrder.map(e => e.label),
                 datasets: [
                   {
                     label: 'Nombre d\'ecoles',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
                     pointBackgroundColor: getStyle('--cui-primary'),
-                    data: nStudentBySubCenter.map(e => e.count),
+                    data: nSchoolByOrder.map(e => e.count),
                   },
                 ],
               }}

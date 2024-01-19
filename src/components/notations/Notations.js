@@ -16,7 +16,7 @@ const Notations = ({ notations }) => {
         </CTableRow>
       </CTableHead>
       <CTableBody>
-        {notations.map((notation, index) => (
+        {notations?.map((notation, index) => (
           <Notation notation={notation} key={notation.id} inc={index+1} />
         ))}
       </CTableBody>   

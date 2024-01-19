@@ -15,6 +15,7 @@ const Login = ({isAuthenticated}) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [examSession, setExamSession] = useState('')
+  const [examSessionLabel, setExamSessionLabel] = useState('')
   const [examSessions, setExamSessions] = useState([])
 
   const loginUrl =  "http://localhost:8081/auth/sign-in"
@@ -37,6 +38,8 @@ const Login = ({isAuthenticated}) => {
           "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS"
         }
         try{
+          localStorage.setItem("exam_session", examSession)
+          localStorage.setItem("exam_session_label", getExamSession(examSession))
           const response = await login(anonyHeaders)
           //isAuthenticated = response.data
           //navagation('/dashboard', { replace: true })
@@ -56,6 +59,15 @@ const Login = ({isAuthenticated}) => {
     loadExamSessions()
     }, [navagation, isAuthenticated])
 
+    const getExamSession = (label) => {
+      var session;
+      examSessions.forEach(e =>{
+        if(e.id == label){
+          session = e.examSession;
+        }
+      })
+      return session
+    }
 
     const loadExamSessions = () => {
     
@@ -120,11 +132,11 @@ const Login = ({isAuthenticated}) => {
                         onChange={(e) => setExamSession(e.target.value)}
                         required
                         >
-                        <option value={''}>Choose Exam Session...</option>
+                        <option value={''} label={''}>Choose Exam Session...</option>
                         {
                       examSessions.map(
                         (session, index) => (
-                          <option key={index} value={session.id}>{session?.examSession}</option>
+                          <option key={index} value={session.id} label={session?.examSession}  >{session?.examSession}</option>
                         )
                       )
                     }

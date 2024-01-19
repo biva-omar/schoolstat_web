@@ -23,7 +23,7 @@ const State2List = () => {
       const listFromServer = await fetchList()
       setList(listFromServer)
     }
-
+    
     getList()
   }, [])
   // Fetch Tasks from the fake json-rest-server
@@ -33,13 +33,14 @@ const State2List = () => {
     return data
   }
   const [list, setList] = useState([])
+  const examSession = localStorage.getItem("exam_session_label")
   console.log(list)
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>SATATISTIQUES DES INTERVENANTS AU CEP SESSION 2023</strong>
+            <strong>SATATISTIQUES DES INTERVENANTS AU CEP <span>{examSession}</span></strong>
             <GeneratePDF object={list} state={'2'} />
           </CCardHeader>
           <CCardBody>

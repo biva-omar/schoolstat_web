@@ -80,7 +80,7 @@ const AddNotation = () => {
             <strong>Attribuer une note</strong>
           </CCardHeader>
           <CCardBody>
-            <NotationForm addNotation={addNotation} matieres={matieres} students={students} />
+            <NotationForm addNotation={addNotation} matieres={matieres} students={students.content} />
           </CCardBody>
         </CCard>
       </CCol>

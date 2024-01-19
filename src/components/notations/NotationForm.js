@@ -53,7 +53,7 @@ const NotationForm = ({addNotation, matieres, students}) => {
                   <CFormSelect id="inlineFormSelectPref" value={student} onChange={(e) => setStudent(e.target.value)} required>
                     <option value={''}>Choose...</option>
                     {
-                      students.map(
+                      students?.map(
                         (student, index) => (
                           <option key={index} value={student.id}>{student.firstname + ' ' + student.lastname}</option>
                         )

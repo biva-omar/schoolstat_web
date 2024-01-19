@@ -44,11 +44,6 @@ const _nav = [
         name: 'Ajouter un centre',
         to: '/centers/add',
       },
-      {
-        component: CNavItem,
-        name: 'Rechercher un Centre',
-        to: '/centers/search',
-      },
     ],
   },
   {
@@ -66,11 +61,6 @@ const _nav = [
         component: CNavItem,
         name: 'Ajouter un sous-centre',
         to: '/subcenters/add',
-      },
-      {
-        component: CNavItem,
-        name: 'Rechercher un sous centre',
-        to: '/subcenters/search',
       },
     ],
   },
@@ -137,11 +127,6 @@ const _nav = [
         component: CNavItem,
         name: 'Ajouter une matiere',
         to: '/matieres/add',
-      },
-      {
-        component: CNavItem,
-        name: 'Rechercher une matiere',
-        to: '/matieres/search',
       },
     ],
   },

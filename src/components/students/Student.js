@@ -47,7 +47,7 @@ const Student = ({student, inc}) => {
 
 
   const updateItem = () => {
-    let postData = {firstname, lastname, birthday, sex, schoolId: school?.id }
+    let postData = {firstname, lastname, birthday, sex, schoolId: student?.schoolId }
 
     axios.put(baseUrl+"/students/"+student.id, postData, {headers: headers})
 
@@ -116,7 +116,7 @@ const Student = ({student, inc}) => {
   }
 
   const fetchSchools = () => {
-    axios.get(baseUrl+"/schools", {headers: headers})
+    /*axios.get(baseUrl+"/schools", {headers: headers})
 
     .then(
       response => {
@@ -130,7 +130,7 @@ const Student = ({student, inc}) => {
     )
     .catch(error => {
       console.error('There was an error!', error);
-  });
+  });*/
   }
   
   return (
@@ -171,19 +171,7 @@ const Student = ({student, inc}) => {
       </CTableDataCell>
       
       <CTableDataCell style={{width: '17%'}}>
-        {showUpdate? 
-        (
-          <CFormSelect  size='sm' style={{height: '33px'}} value={school?.id} onChange={(e) => setSchool({id: e.target.value })} required>
-              <option  value={''}>Choose...</option>
-                    {
-                      schools.map(
-                        (school, index) => (
-                          <option key={index} value={school.id}>{school.label}</option>
-                        )
-                      )
-                    }
-          </CFormSelect>
-        ) : (<>{school?.label}</>)}
+        {student.schoolLabel}
       </CTableDataCell>
 
       <CTableDataCell style={{width: '17%'}}>

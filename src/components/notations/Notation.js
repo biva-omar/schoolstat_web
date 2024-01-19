@@ -130,8 +130,8 @@ const Notation = ({notation, inc}) => {
   return (
     <CTableRow>
       <CTableHeaderCell scope="row">{inc}</CTableHeaderCell>
-      <CTableDataCell>{notation.student?.firstname + ' ' + notation.student?.lastname}</CTableDataCell>
-      <CTableDataCell>{notation.matiere?.label}</CTableDataCell>
+      <CTableDataCell>{notation.studentFirstname + ' ' + notation.studentLastname}</CTableDataCell>
+      <CTableDataCell>{notation.matiereLabel}</CTableDataCell>
 
       <CTableDataCell style={{width: '20%'}}>
         {showUpdate? (<CFormInput size='sm'  value={note} onChange={(e) => setNote(e.target.value) } />): (<>{note}</>)}

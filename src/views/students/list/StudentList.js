@@ -31,7 +31,7 @@ const StudentList = () => {
   }, [])
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/students', {headers: headers})
+    const res = await fetch(baseUrl + '/students/', {headers: headers})
     const data = await res.json()
     return data
   }
@@ -69,7 +69,7 @@ const StudentList = () => {
                   <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
-              <Students students={list} />
+              <Students students={list.content} />
             </CTable>
           </CCardBody>
         </CCard>

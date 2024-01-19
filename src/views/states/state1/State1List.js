@@ -27,13 +27,15 @@ const State1List = () => {
     return data
   }
   const [list, setList] = useState([])
+  const examSession = localStorage.getItem("exam_session_label")
   console.log(list)
   return (
+    
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>SYNTHESE DES RESULTATS DU CEP  SESSION 2023</strong>
+            <strong>SYNTHESE DES RESULTATS DU CEP  <span>{examSession}</span></strong>
             <GeneratePDF object={list} />
           </CCardHeader>
           <CCardBody>

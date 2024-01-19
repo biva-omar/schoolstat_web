@@ -31,7 +31,7 @@ const NotationList = () => {
   }, [])
   // Fetch Tasks from the fake json-rest-server
   const fetchList = async () => {
-    const res = await fetch(baseUrl + '/notes', {headers: headers})
+    const res = await fetch(baseUrl + '/notes/', {headers: headers})
     const data = await res.json()
     return data
   }
@@ -57,7 +57,7 @@ const NotationList = () => {
             </Link>
           </CCardHeader>
           <CCardBody>
-            <Notations notations={list} />
+            <Notations notations={list.content} />
           </CCardBody>
         </CCard>
       </CCol>
