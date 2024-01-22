@@ -5,7 +5,7 @@ import School from './School'
 const Schools = ({ schools }) => {
   return (
     <CTableBody>
-      {schools.map((school, index) => (
+      {schools?.map((school, index) => (
         <School school={school} key={school.id} inc={index+1} />
       ))}
     </CTableBody>

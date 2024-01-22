@@ -21,23 +21,36 @@ import { Link } from 'react-router-dom'
 import { baseUrl, headers } from 'src/AppConfig'
 
 const SchoolList = () => {
+
+  const [list, setList] = useState([])
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const getList = async (currentPage) => {
+    const listFromServer = await fetchList(currentPage)
+    setList(listFromServer)
+  }
   
   useEffect(() => {
-    const getList = async () => {
-      const listFromServer = await fetchList()
-      setList(listFromServer)
-    }
+    
 
-    getList()
+    getList(currentPage)
   }, [])
   // Fetch Tasks from the fake json-rest-server
-  const fetchList = async () => {
-    const res = await fetch(baseUrl + '/schools', {headers: headers})
+  const fetchList = async (currentPage) => {
+    const res = await fetch(baseUrl + '/schools/?size=50&page='+currentPage, {headers: headers})
     const data = await res.json()
     return data
   }
-  const [list, setList] = useState([])
-  console.log(list)
+
+  const getPaginationContent = (length, current) => {
+    let content = [];
+    for (let i = 0; i < length; i++) {
+      content.push(<CPaginationItem onClick={() =>{setCurrentPage(i); getList(i);} } active={i==current} key={i}>{i+1}</CPaginationItem>);
+    }
+    return content;
+  };
+
+  
   return (
     <CRow>
       <CCol xs={12}>
@@ -63,50 +76,20 @@ const SchoolList = () => {
                   <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
-              <Schools schools={list} />
+              <Schools schools={list?.content} />
             </CTable>
-            <CPagination aria-label="Page navigation example">
-              <CPaginationItem aria-label="Previous">
+            {(list?.totalPages > 1)? <>
+              <CPagination aria-label="Page navigation example">
+              <CPaginationItem aria-label="Previous" disabled={list?.first}>
                 <span aria-hidden="true">&laquo;</span>
               </CPaginationItem>
-              
-              <CPaginationItem >1</CPaginationItem>
-              <CPaginationItem>2</CPaginationItem>
-              <CPaginationItem>3</CPaginationItem>
-
-              <CPaginationItem >1</CPaginationItem>
-              <CPaginationItem>2</CPaginationItem>
-              <CPaginationItem>3</CPaginationItem>
-
-              <CPaginationItem >1</CPaginationItem>
-              <CPaginationItem>2</CPaginationItem>
-              <CPaginationItem>3</CPaginationItem>
-
-              <CPaginationItem >1</CPaginationItem>
-              <CPaginationItem>2</CPaginationItem>
-              <CPaginationItem>3</CPaginationItem>
-
-              <CPaginationItem >1</CPaginationItem>
-              <CPaginationItem>2</CPaginationItem>
-              <CPaginationItem>3</CPaginationItem>
-
-              <CPaginationItem >1</CPaginationItem>
-              <CPaginationItem>2</CPaginationItem>
-              <CPaginationItem>3</CPaginationItem>
-
-              <CPaginationItem >1</CPaginationItem>
-              <CPaginationItem>2</CPaginationItem>
-              <CPaginationItem>3</CPaginationItem>
-
-              <CPaginationItem >1</CPaginationItem>
-              <CPaginationItem>2</CPaginationItem>
-              <CPaginationItem>3</CPaginationItem>
-
-              
-              <CPaginationItem aria-label="Next">
+              {getPaginationContent(list?.totalPages, currentPage)}
+              <CPaginationItem aria-label="Next" disabled={list?.last}>
                 <span aria-hidden="true">&raquo;</span>
               </CPaginationItem>
             </CPagination>
+            </>: <></> }
+            
           </CCardBody>
         </CCard>
       </CCol>

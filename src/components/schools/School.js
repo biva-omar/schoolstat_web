@@ -49,7 +49,7 @@ const School = ({school, inc}) => {
 
 
   const updateItem = () => {
-    let postData = {label: newLabel, examSubCenterId: newSubCenter.id, teachingOrder: newOrder.label}
+    let postData = {label: newLabel, examSubCenterId: newSubCenter?.id, teachingOrder: newOrder.label}
     console.log(postData)
     axios.put(baseUrl+"/schools/"+school.id, postData, {headers: headers})
 
@@ -158,7 +158,7 @@ const School = ({school, inc}) => {
       <CTableDataCell style={{width: '17%'}}>
         {showUpdate? 
         (
-          <CFormSelect  size='sm' style={{height: '33px'}} value={newSubCenter.id} onChange={(e) => setNewSubCenter({id: e.target.value })} required>
+          <CFormSelect  size='sm' style={{height: '33px'}} value={newSubCenter?.id} onChange={(e) => setNewSubCenter({id: e.target.value })} required>
               <option  value={''}>Choose...</option>
                     {
                       subCenters.map(
@@ -168,7 +168,7 @@ const School = ({school, inc}) => {
                       )
                     }
           </CFormSelect>
-        ) : (<>{newSubCenter.label}</>)}
+        ) : (<>{newSubCenter?.label}</>)}
       </CTableDataCell>
 
       <CTableDataCell>{newSubCenter?.examCenter?.label}</CTableDataCell>
